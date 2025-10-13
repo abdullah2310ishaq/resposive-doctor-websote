@@ -20,16 +20,16 @@ export default function WelcomePage() {
           className="object-cover"
         />
         {/* Full dark overlay */}
-        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-        {/* Gradient to black on the left side */}
-        <div className="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-r from-black/70 via-black/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+        {/* Focused gradient exactly where the text sits */}
+        <div className="absolute inset-y-0 left-0 w-[85vw] sm:w-[520px] md:w-[640px] lg:w-[700px] xl:w-[760px] bg-gradient-to-r from-black/75 via-black/40 to-transparent pointer-events-none" />
       </div>
       
       <Navbar />
       
-      {/* Main Content - Centered */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center pt-20 px-4">
-        <div className="max-w-4xl w-full text-center">
+      {/* Main Content - Left aligned like reference */}
+      <div className="absolute inset-0 z-10 flex items-center justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
+        <div className="max-w-3xl w-full text-left">
           {/* Main Heading - Bebas Neue font, exact size from reference */}
           <motion.h1 
             className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-6 tracking-tight"
@@ -43,7 +43,7 @@ export default function WelcomePage() {
           
           {/* Green Underline */}
           <motion.div 
-            className="w-24 h-1 bg-green-400 mx-auto mb-8"
+            className="w-24 h-1 bg-green-400 mb-8"
             initial={{ width: 0 }}
             animate={{ width: 96 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -51,20 +51,20 @@ export default function WelcomePage() {
           
           {/* Descriptive Text - Poppins font, line-height adjusted for alignment */}
           <motion.div 
-            className="space-y-4 text-white text-sm sm:text-base leading-6 sm:leading-7 max-w-3xl mx-auto px-4"
+            className="space-y-4 text-white text-sm sm:text-base leading-6 sm:leading-7 max-w-2xl"
             style={{ fontFamily: 'var(--font-poppins)' }}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            <p className="text-left sm:text-center">
+            <p className="text-left">
               Mana Of Arta Is A Sanctuary Space We Sculpt For Your Mind, Body And Spirit To Retune And Revive To Reveal Your True Power — Art And Nature
             </p>
-            <p className="text-left sm:text-center">
-              We Are An Eco-Friendly, And Tech-Integrated Solution For Complex Psychological Needs Of Today Global Citizens.
+            <p className="text-left">
+              We Are An Eco-Friendly, And Tech-Integrated Solution For Complex Psychological Needs Of Today&#39;s Global Citizens.
             </p>
-            <p className="text-left sm:text-center">
-              Let us Get On A Routine For Psyche Detox And Personal Hygiene For Mind.
+            <p className="text-left">
+              Let&#39;s Get On A Routine For Psyche Detox And Personal Hygiene For Mind.
             </p>
           </motion.div>
           
