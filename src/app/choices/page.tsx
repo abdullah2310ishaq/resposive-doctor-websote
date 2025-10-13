@@ -26,7 +26,7 @@ export default function ChoicesPage() {
     },
     {
       title: "MOOD AND ANXIETY",
-      content: "Art therapy surpasses the limitations of verbal expression. It engages the soul, body, and mind to address emotional, spiritual, social, and clinical well-being. Through creativity, individuals gain insight into emotions behind dysregulation, depression, anxiety, and anger. It enhances motivation, reduces stress, strengthens interpersonal bonds, and nurtures fulfillment."
+      content: "Art therapy surpasses the limitations of verbal expression. It engages the soul, body, and mind to address emotional, spiritual, social, and clinical well-being. Through creativity, individuals gain insight into emotions behind dysregulation, depression, anxiety, and anger. It enhances motivation, reduces stress, strengthens interpersonal bonds."
     }
   ];
 
@@ -46,6 +46,7 @@ export default function ChoicesPage() {
   ];
 
   const currentSlides = currentSlide === 0 ? slides : slides2;
+  const desktopPos = currentSlide === 1 ? "sm:left-8 sm:right-auto" : "sm:right-8";
 
   return (
     <motion.div 
@@ -72,8 +73,8 @@ export default function ChoicesPage() {
       <Navbar />
       
       {/* Main Content - Left aligned like reference */}
-      <div className="absolute inset-0 z-10 flex items-start justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
-        <div className="max-w-3xl">
+      <div className="absolute inset-0 z-10 flex items-start justify-start pt-24 pb-12 px-4 sm:px-12 lg:px-24">
+        <div className="max-w-3xl pr-10 sm:pr-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -93,12 +94,12 @@ export default function ChoicesPage() {
                 >
                   <div className="inline-block">
                     <h2 
-                      className="text-3xl sm:text-4xl md:text-5xl font-bold text-white uppercase mb-2"
+                      className="text-2xl sm:text-4xl md:text-5xl font-bold text-white uppercase mb-2"
                       style={{ fontFamily: 'var(--font-bebas-neue)' }}
                     >
                       {slide.title}
                     </h2>
-                    <div className="h-1 bg-green-400 mb-4"></div>
+                    <div className="h-1 bg-green-400 mb-3 sm:mb-4"></div>
                   </div>
                   <p 
                     className="text-white/90 text-sm sm:text-base leading-relaxed max-w-2xl"
@@ -113,19 +114,19 @@ export default function ChoicesPage() {
         </div>
       </div>
       
-      {/* Arrow Button - vertically centered in both states; left on second slide */}
-      <div className={`absolute z-20 transform ${currentSlide === 1 ? 'left-8 top-1/2 -translate-y-1/2' : 'right-8 top-1/2 -translate-y-1/2'}`}>
+      {/* Arrow Button - On mobile it stays on the right; on desktop it switches sides */}
+      <div className={`absolute z-20 transform right-3 top-1/2 -translate-y-1/2 ${desktopPos}`}>
         <motion.button 
           onClick={currentSlide === 0 ? nextSlide : prevSlide}
-          className="w-12 h-12 flex items-center justify-center hover:scale-110 transition-all duration-300"
+          className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:scale-110 transition-all duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
           <Image
             src="/side.png"
             alt="Navigation Arrow"
-            width={48}
-            height={48}
+            width={40}
+            height={40}
             className="object-contain"
             style={{ 
               transform: currentSlide === 1 ? 'rotate(180deg)' : 'rotate(0deg)',

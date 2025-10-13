@@ -45,9 +45,11 @@ export default function Navbar() {
         className="md:hidden ml-auto inline-flex items-center justify-center w-10 h-10 rounded-md bg-white/10 hover:bg-white/20 focus:outline-none"
         aria-label="Toggle menu"
       >
-        <span className="block w-6 h-0.5 bg-white mb-1" />
-        <span className="block w-6 h-0.5 bg-white mb-1" />
-        <span className="block w-6 h-0.5 bg-white" />
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0" width="22" height="2" rx="1" fill="white"/>
+          <rect y="6" width="22" height="2" rx="1" fill="white"/>
+          <rect y="12" width="22" height="2" rx="1" fill="white"/>
+        </svg>
       </button>
       
       {/* Right group: links then contact button at the end */}

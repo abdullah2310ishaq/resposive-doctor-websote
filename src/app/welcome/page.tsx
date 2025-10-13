@@ -29,12 +29,12 @@ export default function WelcomePage() {
       <Navbar />
       
       {/* Main Content - Left aligned like reference */}
-      <div className="absolute inset-0 z-10 flex items-center justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
+      <div className="absolute inset-0 z-10 flex items-center justify-start pt-24 pb-12 px-4 sm:px-12 lg:px-24">
         <div className="max-w-3xl w-full text-left">
           {/* Heading + responsive underline */}
           <div className="inline-block">
             <motion.h1 
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-2 tracking-tight"
+              className="text-3xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-2 tracking-tight"
               style={{ fontFamily: 'var(--font-bebas-neue)' }}
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -43,7 +43,7 @@ export default function WelcomePage() {
               WELCOME TO MIND SPA
             </motion.h1>
             <motion.div
-              className="h-1 bg-green-400 mb-8 inline-block"
+              className="h-1 bg-green-400 mb-6 sm:mb-8 inline-block"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
@@ -79,14 +79,14 @@ export default function WelcomePage() {
           >
             <Link 
               href="/explore"
-              className="text-black text-sm sm:text-base font-semibold relative overflow-hidden group inline-flex items-center justify-center whitespace-nowrap"
+              className="text-black text-xs sm:text-base font-semibold relative overflow-hidden group inline-flex items-center justify-center whitespace-nowrap"
               style={{
                 background: 'linear-gradient(90deg, #14F195, #63DB70)',
                 boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)',
                 width: 'auto',
-                height: 42,
+                height: 40,
                 borderRadius: 3,
-                padding: '15px 27px'
+                padding: '12px 22px'
               }}
             >
               <span className="relative z-10 font-bold">Learn More</span>

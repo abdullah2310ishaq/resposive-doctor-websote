@@ -66,7 +66,7 @@ export default function ContactPage() {
         {/* Unified Card: Form + Image in one container */}
         <div className="max-w-4xl w-full">
           <div className="bg-gray-900/60 backdrop-blur-sm rounded-2xl border border-white/10 p-4 lg:p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           
               {/* Left: Contact Form */}
               <motion.div 
@@ -124,7 +124,7 @@ export default function ContactPage() {
           
               {/* Right: Visual Section */}
               <motion.div 
-                className="relative"
+                className="relative hidden md:block"
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
