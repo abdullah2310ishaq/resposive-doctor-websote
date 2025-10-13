@@ -115,12 +115,21 @@ export default function PhilosophyPage() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4 }}
               >
-                <h2
-                  className="text-green-400 text-2xl font-bold mb-4 text-left"
-                  style={{ fontFamily: "var(--font-poppins)" }}
-                >
-                  {activeTab === "art" ? "I AM ART" : "I AM NATURE"}
-                </h2>
+                <div className="inline-block mb-4">
+                  <h2
+                    className="text-green-400 text-2xl font-bold mb-2 text-left"
+                    style={{ fontFamily: "var(--font-poppins)" }}
+                  >
+                    {activeTab === "art" ? "I AM ART" : "I AM NATURE"}
+                  </h2>
+                  <motion.div
+                    className="h-1 bg-green-400 inline-block"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ transformOrigin: 'left', width: '100%' }}
+                  />
+                </div>
 
                 <div className="space-y-3 text-white/95 text-base leading-relaxed text-left">
                   {(activeTab === "art" ? artContent : natureContent).map(

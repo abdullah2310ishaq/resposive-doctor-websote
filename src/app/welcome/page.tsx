@@ -31,24 +31,25 @@ export default function WelcomePage() {
       {/* Main Content - Left aligned like reference */}
       <div className="absolute inset-0 z-10 flex items-center justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
         <div className="max-w-3xl w-full text-left">
-          {/* Main Heading - Bebas Neue font, exact size from reference */}
-          <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-6 tracking-tight"
-            style={{ fontFamily: 'var(--font-bebas-neue)' }}
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            WELCOME TO MIND SPA
-          </motion.h1>
-          
-          {/* Green Underline */}
-          <motion.div 
-            className="w-24 h-1 bg-green-400 mb-8"
-            initial={{ width: 0 }}
-            animate={{ width: 96 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          />
+          {/* Heading + responsive underline */}
+          <div className="inline-block">
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-2 tracking-tight"
+              style={{ fontFamily: 'var(--font-bebas-neue)' }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              WELCOME TO MIND SPA
+            </motion.h1>
+            <motion.div
+              className="h-1 bg-green-400 mb-8 inline-block"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ transformOrigin: 'left', width: '100%' }}
+            />
+          </div>
           
           {/* Descriptive Text - Poppins font, line-height adjusted for alignment */}
           <motion.div 

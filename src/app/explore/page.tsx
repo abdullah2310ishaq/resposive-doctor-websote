@@ -31,25 +31,25 @@ export default function ExplorePage() {
       {/* Main Content - Left-aligned like reference */}
       <div className="absolute inset-0 z-10 flex items-center justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
         <div className="max-w-3xl text-left">
-          {/* Main Heading - Bebas Neue font */}
-          <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-3"
-            style={{ fontFamily: 'var(--font-bebas-neue)' }}
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            EXPLORE ART THERAPY
-          </motion.h1>
-          
-          {/* Green Underline spanning heading width */}
-          <motion.div 
-            className="h-1 bg-green-400 mb-6"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            style={{ transformOrigin: 'left', width: '100%', maxWidth: '38rem' }}
-          />
+          {/* Heading + responsive underline that matches text width */}
+          <div className="inline-block">
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white uppercase mb-2"
+              style={{ fontFamily: 'var(--font-bebas-neue)' }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              EXPLORE ART THERAPY
+            </motion.h1>
+            <motion.div 
+              className="h-1 bg-green-400 mb-6 inline-block"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ transformOrigin: 'left', width: '100%' }}
+            />
+          </div>
           
           {/* Descriptive Text - Poppins font */}
           <motion.div 
