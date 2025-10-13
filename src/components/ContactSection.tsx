@@ -26,8 +26,8 @@ export default function ContactSection() {
           
           {/* Left Card: Contact Form */}
           <div className="bg-gray-800/80 backdrop-blur-sm rounded-lg p-8">
-            <h2 className="text-4xl font-bold text-white mb-4">Let's connect!</h2>
-            <p className="text-white/90 text-lg mb-8">Let your thoughts flow, we're just a message away.</p>
+            <h2 className="text-4xl font-bold text-white mb-4">Let&apos;s connect!</h2>
+            <p className="text-white/90 text-lg mb-8">Let your thoughts flow, we&apos;re just a message away.</p>
             
             <form className="space-y-6">
               {/* Name Fields */}

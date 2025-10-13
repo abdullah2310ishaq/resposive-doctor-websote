@@ -37,7 +37,7 @@ export async function submitContact(payload: ContactPayload): Promise<Web3FormsR
 
     const data = (await res.json()) as { success: boolean; message?: string };
     return { success: !!data.success, message: data.message || (data.success ? "Message sent" : "Message not sent") };
-  } catch (err) {
+  } catch {
     return { success: false, message: "Network error. Please try again later." };
   }
 }
