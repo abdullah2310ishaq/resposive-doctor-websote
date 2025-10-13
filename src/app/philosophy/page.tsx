@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 import { useState } from "react";
@@ -39,8 +38,7 @@ export default function PhilosophyPage() {
             priority
             quality={100}
             placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-           
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
           />
         </div>
         {/* Fallback background behind the image */}
@@ -118,13 +116,13 @@ export default function PhilosophyPage() {
                 transition={{ duration: 0.4 }}
               >
                 <h2
-                  className="text-green-400 text-2xl font-bold mb-4 text-center"
+                  className="text-green-400 text-2xl font-bold mb-4 text-left"
                   style={{ fontFamily: "var(--font-poppins)" }}
                 >
                   {activeTab === "art" ? "I AM ART" : "I AM NATURE"}
                 </h2>
 
-                <div className="space-y-3 text-white/95 text-base leading-relaxed">
+                <div className="space-y-3 text-white/95 text-base leading-relaxed text-left">
                   {(activeTab === "art" ? artContent : natureContent).map(
                     (line, i) => (
                       <motion.p
@@ -133,7 +131,6 @@ export default function PhilosophyPage() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.08 }}
                         style={{ fontFamily: "var(--font-poppins)" }}
-                        className="text-center"
                       >
                         {line}
                       </motion.p>

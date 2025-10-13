@@ -3,20 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   return (
     <motion.div 
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 bg-transparent"
+      className="fixed top-0 left-0 right-0 z-50 bg-transparent px-5 sm:px-8 py-3 flex items-center"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
     >
-      {/* Top Left Logo */}
-      <motion.div 
-        className="flex items-center"
+      <div className="flex items-center">
+        {/* Left: Logo moved slightly inward */}
+        <motion.div 
+        className="flex items-center mr-4"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -30,21 +33,27 @@ export default function Navbar() {
               transition: { duration: 0.5 }
             }}
           >
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="mr-6 cursor-pointer"
-            />
+            <Image src="/logo.png" alt="Logo" width={44} height={44} className="cursor-pointer" />
           </motion.div>
         </Link>
       </motion.div>
+
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden ml-2 inline-flex items-center justify-center w-9 h-9 rounded-md bg-white/10 hover:bg-white/20 focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          <span className="block w-5 h-0.5 bg-white mb-1" />
+          <span className="block w-5 h-0.5 bg-white mb-1" />
+          <span className="block w-5 h-0.5 bg-white" />
+        </button>
+      </div>
       
-      {/* Navigation Links and Contact Button - Grouped on Right */}
-      <div className="flex items-center space-x-6">
+      {/* Right group: links then contact button at the end */}
+      <div className="hidden md:flex items-center ml-auto space-x-6">
         <motion.nav 
-          className="hidden md:flex space-x-6 text-white"
+          className="flex gap-8 text-white"
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
@@ -84,8 +93,8 @@ export default function Navbar() {
             </motion.div>
           ))}
         </motion.nav>
-        
-        {/* Contact Us Button with Green Gradient */}
+
+        {/* Contact button as last item */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -93,16 +102,17 @@ export default function Navbar() {
         >
           <Link 
             href="/contact"
-            className="text-black px-4 py-2 rounded-lg text-xs font-bold relative overflow-hidden group"
+            className="text-black text-sm font-semibold relative overflow-hidden group inline-flex items-center justify-center"
             style={{
-              background: 'linear-gradient(to right, #14F195, #63DB70)',
-              boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)'
+              background: 'linear-gradient(90deg, #14F195, #63DB70)',
+              boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)',
+              width: 140,
+              height: 42,
+              borderRadius: 3,
+              padding: '15px 27px'
             }}
           >
-            <motion.span
-              className="relative z-10"
-              whileHover={{ scale: 1.05 }}
-            >
+            <motion.span className="relative z-10" whileHover={{ scale: 1.05 }}>
               Contact Us
             </motion.span>
             <motion.div
@@ -113,6 +123,26 @@ export default function Navbar() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Mobile dropdown menu */}
+      {open && (
+        <div className="md:hidden absolute top-full left-0 right-0 mt-2 px-5">
+          <div className="bg-black/70 backdrop-blur-md border border-white/10 rounded-xl p-4 space-y-3">
+            {[
+              { href: "/welcome", label: "Welcome" },
+              { href: "/explore", label: "Explore" },
+              { href: "/choices", label: "Choices" },
+              { href: "/philosophy", label: "Our Philosophy" },
+              { href: "/offerings", label: "Our Offerings" },
+              { href: "/contact", label: "Contact Us" }
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="block text-white py-1" onClick={() => setOpen(false)}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

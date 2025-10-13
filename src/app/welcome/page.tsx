@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 export default function WelcomePage() {
@@ -69,16 +70,32 @@ export default function WelcomePage() {
           </motion.div>
           
           {/* Learn More Button */}
-          <motion.button 
-            className="mt-8 bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-black px-8 py-3 rounded-lg transition-all duration-300 shadow-lg font-medium text-base"
+          <motion.div
+            className="mt-8"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.5 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            Learn More
-          </motion.button>
+            <Link 
+              href="/explore"
+              className="text-black text-sm sm:text-base font-semibold relative overflow-hidden group inline-flex items-center justify-center whitespace-nowrap"
+              style={{
+                background: 'linear-gradient(90deg, #14F195, #63DB70)',
+                boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)',
+                width: 'auto',
+                height: 42,
+                borderRadius: 3,
+                padding: '15px 27px'
+              }}
+            >
+              <span className="relative z-10 font-bold">Learn More</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20"
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
+              />
+            </Link>
+          </motion.div>
         </div>
       </div>
     </motion.div>

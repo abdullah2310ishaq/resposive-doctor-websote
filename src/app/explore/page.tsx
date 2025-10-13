@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 export default function ExplorePage() {
@@ -70,16 +71,32 @@ export default function ExplorePage() {
           </motion.div>
           
           {/* Our Offerings Button */}
-          <motion.button 
-            className="mt-6 bg-green-500 hover:bg-green-600 text-black px-6 py-2 rounded-lg transition-all duration-300 shadow-lg font-medium text-sm uppercase"
+          <motion.div
+            className="mt-6"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.5 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            OUR OFFERINGS
-          </motion.button>
+            <Link 
+              href="/offerings"
+              className="text-black text-sm font-bold relative overflow-hidden group inline-flex items-center justify-center uppercase whitespace-nowrap"
+              style={{
+                background: 'linear-gradient(90deg, #14F195, #63DB70)',
+                boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)',
+                width: 'auto',
+                height: 42,
+                borderRadius: 3,
+                padding: '15px 27px'
+              }}
+            >
+              <span className="relative z-10">OUR OFFERINGS</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20"
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
+              />
+            </Link>
+          </motion.div>
         </div>
       </div>
       

@@ -3,8 +3,32 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Snackbar from "@/components/Snackbar";
+import { useState } from "react";
+import { submitContact } from "@/services/web3forms";
 
 export default function ContactPage() {
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMsg, setSnackMsg] = useState("");
+  const [snackVariant, setSnackVariant] = useState<"success" | "error">("success");
+
+  // local state for inputs
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const res = await submitContact({ name, email, phone });
+    setSnackVariant(res.success ? "success" : "error");
+    setSnackMsg(res.success ? "Message sent. We will get back to you." : "Message not sent. Try again later.");
+    setSnackOpen(true);
+    if (res.success) {
+      setName("");
+      setEmail("");
+      setPhone("");
+    }
+  }
   return (
     <motion.div 
       className="relative min-h-screen overflow-hidden"
@@ -46,19 +70,23 @@ export default function ContactPage() {
           
               {/* Left: Contact Form */}
               <motion.div 
-                className="space-y-3"
+                className="flex flex-col"
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
               >
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Let&apos;s connect!</h2>
-                <p className="text-white/80 text-sm mb-4">Let your thoughts flow, we&apos;re just a message away.</p>
-                
-                <form className="space-y-3">
+                <div className="w-full max-w-sm mx-auto pt-6 lg:pt-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 text-center">Let&apos;s connect!</h2>
+                  <p className="text-white/80 text-sm mb-4 text-center">Let your thoughts flow, we&apos;re just a message away.</p>
+                  
+                  <form className="space-y-3" onSubmit={handleSubmit}>
                   {/* Full Name */}
                   <input
                     type="text"
                     placeholder="Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
                     className="w-full px-3 py-2 bg-[#141a21] border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 transition-colors"
                   />
                   
@@ -66,6 +94,9 @@ export default function ContactPage() {
                   <input
                     type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="w-full px-3 py-2 bg-[#141a21] border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 transition-colors"
                   />
                   
@@ -73,6 +104,8 @@ export default function ContactPage() {
                   <input
                     type="tel"
                     placeholder="Phone Number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-3 py-2 bg-[#141a21] border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 transition-colors"
                   />
                   
@@ -85,7 +118,8 @@ export default function ContactPage() {
                   >
                     SUBMIT
                   </motion.button>
-                </form>
+                  </form>
+                </div>
               </motion.div>
           
               {/* Right: Visual Section */}
@@ -114,22 +148,32 @@ export default function ContactPage() {
         </div>
       </div>
       
-      {/* Row above footer: logo left, powered by right */}
+      {/* Row above footer: logo left (edge), powered by right (edge) */}
       <motion.div 
         className="absolute left-0 right-0 bottom-12 z-20"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.0, duration: 0.6 }}
       >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+        <div className="w-full px-4 sm:px-6">
+          <div className="relative w-full">
+            <div className="absolute left-4 sm:left-6 bottom-0 flex items-center">
               <Image src="/am.png" alt="Mana Of Arta" width={200} height={200} />
             </div>
-            <p className="text-white font-semibold text-xs sm:text-sm tracking-wider">POWERED BY MANA OF ARTA</p>
+            <div className="absolute right-4 sm:right-6 bottom-4 sm:bottom-2">
+              <p className="text-white font-semibold text-xs sm:text-sm tracking-wider text-right">POWERED BY MANA OF ARTA</p>
+            </div>
           </div>
         </div>
       </motion.div>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackOpen}
+        message={snackMsg}
+        variant={snackVariant}
+        onClose={() => setSnackOpen(false)}
+      />
 
       {/* Footer: copyright left, social right */}
       <motion.div 

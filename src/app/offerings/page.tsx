@@ -2,8 +2,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import { useState } from "react";
 
 export default function OfferingsPage() {
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
   return (
     <motion.div 
       className="relative min-h-screen overflow-hidden"
@@ -27,10 +29,10 @@ export default function OfferingsPage() {
       <Navbar />
       
       {/* Main Content */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center min-h-screen py-8">
+      <div className="relative z-10 flex flex-col items-center justify-start min-h-screen pt-28 pb-12">
         {/* Page Title */}
         <motion.h1 
-          className="text-4xl font-bold text-white text-center mb-6"
+          className="text-3xl font-bold text-white text-center mb-4 px-4"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
@@ -40,7 +42,7 @@ export default function OfferingsPage() {
         
         {/* Descriptive Subtitle */}
         <motion.p 
-          className="text-white/90 text-sm text-center max-w-3xl mb-12 px-8"
+          className="text-white/90 text-sm text-center max-w-2xl mb-10 px-6"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
@@ -50,7 +52,7 @@ export default function OfferingsPage() {
         
         {/* Pricing Cards */}
         <motion.div 
-          className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 max-w-5xl w-full px-4"
+          className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 w-full max-w-4xl mx-auto px-4"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8 }}
@@ -58,12 +60,16 @@ export default function OfferingsPage() {
           
           {/* Left Card: Individual Packages */}
           <motion.div 
-            className="rounded-2xl p-[1px] bg-[linear-gradient(180deg,rgba(96,165,250,0.35),rgba(96,165,250,0.05))] shadow-2xl max-w-[560px] w-full mx-auto"
+            className="relative overflow-hidden rounded-[40px] border-2 border-white/10 shadow-2xl max-w-[520px] w-full mx-auto"
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            <div className="rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
+            {/* tiled radial gradient overlay (slightly stronger) */}
+            <div className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay bg-[radial-gradient(circle,_#A5EFFF,_#6EBFF4_22.4%,_#4690D4_0%)] bg-[length:56px_56px]" />
+            {/* subtle vertical accent gradient */}
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(96,165,250,0.35),rgba(96,165,250,0.05))] opacity-70" />
+            <div className="relative rounded-[38px] bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
               <div className="flex items-center mb-6">
                 <Image src="/offerings_svg_3.svg" alt="Section" width={32} height={32} className="mr-3" />
                 <h2 className="text-xl font-bold text-white">Individual Packages (Virtual)</h2>
@@ -71,10 +77,14 @@ export default function OfferingsPage() {
               
               <div className="space-y-3">
                 {/* Single Sessions */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("individual-single")}
+                  className={`${selectedPlan === "individual-single" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Single Sessions</h3>
-                    <div className="text-xl font-bold text-white">$130</div>
+                    <div className="text-2xl font-bold text-white">$130</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -86,13 +96,17 @@ export default function OfferingsPage() {
                       Free 15 min intro session
                     </div>
                   </div>
-                </div>
+                </button>
                 
                 {/* Bundle 1 */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("individual-b1")}
+                  className={`${selectedPlan === "individual-b1" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Bundle 1</h3>
-                    <div className="text-xl font-bold text-white">$1000</div>
+                    <div className="text-2xl font-bold text-white">$1000</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -104,13 +118,17 @@ export default function OfferingsPage() {
                       Free introduction (15 min each)
                     </div>
                   </div>
-                </div>
+                </button>
                 
                 {/* Bundle 2 */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("individual-b2")}
+                  className={`${selectedPlan === "individual-b2" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Bundle 2</h3>
-                    <div className="text-xl font-bold text-white">$2000</div>
+                    <div className="text-2xl font-bold text-white">$2000</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -122,19 +140,23 @@ export default function OfferingsPage() {
                       Free introduction (15 min each)
                     </div>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
           </motion.div>
           
           {/* Right Card: Joint Sessions */}
           <motion.div 
-            className="rounded-2xl p-[1px] bg-[linear-gradient(180deg,rgba(20,184,166,0.35),rgba(20,184,166,0.05))] shadow-2xl max-w-[560px] w-full mx-auto"
+            className="relative overflow-hidden rounded-[40px] border-2 border-white/10 shadow-2xl max-w-[520px] w-full mx-auto"
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 1.5, duration: 0.8 }}
           >
-            <div className="rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
+            {/* tiled radial gradient overlay (slightly stronger) */}
+            <div className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay bg-[radial-gradient(circle,_#A5EFFF,_#6EBFF4_22.4%,_#4690D4_0%)] bg-[length:56px_56px]" />
+            {/* subtle vertical accent gradient (teal) */}
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(20,184,166,0.35),rgba(20,184,166,0.05))] opacity-70" />
+            <div className="relative rounded-[38px] bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
               <div className="flex items-center mb-6">
                 <Image src="/offerings_svg_3.svg" alt="Section" width={32} height={32} className="mr-3" />
                 <h2 className="text-xl font-bold text-white">Joint Sessions (Virtual)</h2>
@@ -142,10 +164,14 @@ export default function OfferingsPage() {
               
               <div className="space-y-3">
                 {/* Single Sessions */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("joint-single")}
+                  className={`${selectedPlan === "joint-single" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Single Sessions</h3>
-                    <div className="text-xl font-bold text-white">$200</div>
+                    <div className="text-2xl font-bold text-white">$200</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -157,13 +183,17 @@ export default function OfferingsPage() {
                       Free introduction session (15 min)
                     </div>
                   </div>
-                </div>
+                </button>
                 
                 {/* Bundle 1 */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("joint-b1")}
+                  className={`${selectedPlan === "joint-b1" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Bundle 1</h3>
-                    <div className="text-xl font-bold text-white">$1000</div>
+                    <div className="text-2xl font-bold text-white">$1000</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -175,13 +205,17 @@ export default function OfferingsPage() {
                       Free introduction (15 min each)
                     </div>
                   </div>
-                </div>
+                </button>
                 
                 {/* Bundle 2 */}
-                <div className="border border-gray-700 rounded-xl p-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("joint-b2")}
+                  className={`${selectedPlan === "joint-b2" ? "border-emerald-400/80 ring-1 ring-emerald-400/40" : "border-gray-700"} border rounded-xl p-4 bg-black/20 text-left w-full transition-colors`}
+                >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="text-sm font-bold text-white">Bundle 2</h3>
-                    <div className="text-xl font-bold text-white">$1,500</div>
+                    <div className="text-2xl font-bold text-white">$1,900</div>
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
@@ -193,7 +227,7 @@ export default function OfferingsPage() {
                       Free introduction (15 min each)
                     </div>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
           </motion.div>
