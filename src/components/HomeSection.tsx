@@ -8,11 +8,6 @@ export default function HomeSection() {
   const [showMenu, setShowMenu] = useState(false);
   const menuScrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollByAmount = (delta: number) => {
-    const el = menuScrollRef.current;
-    if (el) el.scrollBy({ left: delta, behavior: "smooth" });
-  };
-
   const handleDotsClick = () => {
     setShowMenu(true);
   };
@@ -137,7 +132,7 @@ export default function HomeSection() {
               {/* Menu Bar morphs from dots capsule */}
             <motion.div
               layoutId="menuBar"
-              className="relative mb-3 flex items-center flex-nowrap overflow-x-auto gap-2 sm:gap-4 rounded-2xl px-2.5 sm:px-4 py-2.5 sm:py-3 border border-white/15 backdrop-blur-xl shadow-[0_10px_50px_rgba(0,0,0,0.55)]
+              className="relative mb-3 flex flex-col sm:flex-row items-stretch sm:items-center sm:flex-nowrap sm:overflow-x-auto gap-2 sm:gap-4 rounded-2xl px-2.5 sm:px-4 py-2.5 sm:py-3 border border-white/15 backdrop-blur-xl shadow-[0_10px_50px_rgba(0,0,0,0.55)]
               bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.03))]
               before:content-[''] before:absolute before:inset-0 before:-z-10 before:rounded-3xl before:bg-[radial-gradient(120%_80%_at_50%_-20%,rgba(20,241,149,0.18),transparent_60%)]"
               ref={menuScrollRef}
@@ -155,7 +150,7 @@ export default function HomeSection() {
                 { href: "/contact", label: "Contact us" },
               ].map((item) => (
                 <Link key={item.href} href={item.href} onClick={() => setShowMenu(false)}>
-                  <span className="inline-block whitespace-nowrap rounded-xl px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm text-white/90 hover:text-white border border-white/15 
+                  <span className="inline-block whitespace-nowrap rounded-xl px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm text-white/90 hover:text-white border border-white/15 w-full sm:w-auto text-center
                   bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))]
                   shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_0_0_1px_rgba(20,241,149,0.45),inset_0_1px_0_rgba(255,255,255,0.25)] transition-all">
                     {item.label}
@@ -163,25 +158,8 @@ export default function HomeSection() {
                 </Link>
               ))}
               </motion.div>
-              {/* Mobile scroll controls */}
-              <div className="sm:hidden absolute inset-y-0 left-0 flex items-center">
-                <button
-                  aria-label="Scroll left"
-                  onClick={() => scrollByAmount(-180)}
-                  className="h-full w-6 bg-gradient-to-r from-black/40 to-transparent text-white/80"
-                >
-                  
-                </button>
-              </div>
-              <div className="sm:hidden absolute inset-y-0 right-0 flex items-center justify-end">
-                <button
-                  aria-label="Scroll right"
-                  onClick={() => scrollByAmount(180)}
-                  className="h-full w-6 bg-gradient-to-l from-black/40 to-transparent text-white/80"
-                >
-                  
-                </button>
-              </div>
+              {/* Mobile scroll controls (not needed with vertical stack) */}
+              <div className="hidden" />
               {/* Close row with label (Mind Spa) */}
               <motion.div
                 className="flex items-center gap-4"
