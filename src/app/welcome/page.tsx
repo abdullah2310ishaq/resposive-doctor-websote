@@ -70,7 +70,7 @@ export default function WelcomePage() {
           
           {/* Learn More Button */}
           <motion.button 
-            className="mt-8 bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white px-8 py-3 rounded-lg transition-all duration-300 shadow-lg font-medium text-base"
+            className="mt-8 bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-black px-8 py-3 rounded-lg transition-all duration-300 shadow-lg font-medium text-base"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.5 }}
