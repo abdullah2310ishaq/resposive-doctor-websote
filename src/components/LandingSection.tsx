@@ -41,15 +41,16 @@ export default function LandingSection() {
       {/* SCROLL text with animated down arrow - positioned in the light beam */}
       <motion.button 
         onClick={scrollToNext}
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center cursor-pointer group"
+        className="absolute bottom-10 sm:bottom-16 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center cursor-pointer group"
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}
         whileHover={{ scale: 1.1, y: -5 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Scroll to next section"
       >
         <motion.div 
-          className="text-white text-3xl font-bold uppercase tracking-widest mb-6"
+          className="text-white text-2xl sm:text-3xl font-bold uppercase tracking-widest mb-4 sm:mb-6"
           animate={{ 
             opacity: [1, 0.8, 1],
             textShadow: [
@@ -63,7 +64,7 @@ export default function LandingSection() {
           SCROLL
         </motion.div>
         <motion.div 
-          className="text-white text-5xl"
+          className="text-white text-4xl sm:text-5xl"
           animate={{ 
             y: [0, 8, 0],
             opacity: [1, 0.7, 1]

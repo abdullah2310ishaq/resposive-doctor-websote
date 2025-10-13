@@ -37,18 +37,18 @@ export default function Navbar() {
           </motion.div>
         </Link>
       </motion.div>
-
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden ml-2 inline-flex items-center justify-center w-9 h-9 rounded-md bg-white/10 hover:bg-white/20 focus:outline-none"
-          aria-label="Toggle menu"
-        >
-          <span className="block w-5 h-0.5 bg-white mb-1" />
-          <span className="block w-5 h-0.5 bg-white mb-1" />
-          <span className="block w-5 h-0.5 bg-white" />
-        </button>
       </div>
+      
+      {/* Mobile menu button on the far right */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="md:hidden ml-auto inline-flex items-center justify-center w-10 h-10 rounded-md bg-white/10 hover:bg-white/20 focus:outline-none"
+        aria-label="Toggle menu"
+      >
+        <span className="block w-6 h-0.5 bg-white mb-1" />
+        <span className="block w-6 h-0.5 bg-white mb-1" />
+        <span className="block w-6 h-0.5 bg-white" />
+      </button>
       
       {/* Right group: links then contact button at the end */}
       <div className="hidden md:flex items-center ml-auto space-x-6">
@@ -126,8 +126,8 @@ export default function Navbar() {
 
       {/* Mobile dropdown menu */}
       {open && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-2 px-5">
-          <div className="bg-black/70 backdrop-blur-md border border-white/10 rounded-xl p-4 space-y-3">
+        <div className="md:hidden absolute top-full left-0 right-0 mt-2 px-3 sm:px-5">
+          <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl p-3 sm:p-4 space-y-2 sm:space-y-3">
             {[
               { href: "/welcome", label: "Welcome" },
               { href: "/explore", label: "Explore" },
@@ -136,7 +136,7 @@ export default function Navbar() {
               { href: "/offerings", label: "Our Offerings" },
               { href: "/contact", label: "Contact Us" }
             ].map((item) => (
-              <Link key={item.href} href={item.href} className="block text-white py-1" onClick={() => setOpen(false)}>
+              <Link key={item.href} href={item.href} className="block text-white py-2 text-base" onClick={() => setOpen(false)}>
                 {item.label}
               </Link>
             ))}

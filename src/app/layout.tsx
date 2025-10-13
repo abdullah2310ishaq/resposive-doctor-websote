@@ -25,7 +25,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Pscyology",
+  title: "Mana of Arta",
 };
 
 export default function RootLayout({
