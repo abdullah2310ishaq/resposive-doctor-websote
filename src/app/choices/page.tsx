@@ -65,13 +65,15 @@ export default function ChoicesPage() {
       </div>
       
       {/* Dark overlay for text readability - removed blur */}
-      <div className="absolute inset-0 bg-black/20 z-5"></div>
+      <div className="absolute inset-0 bg-black/25 z-5"></div>
+      {/* Focused left gradient panel behind text area */}
+      <div className="absolute inset-y-0 left-0 z-5 w-[85vw] sm:w-[520px] md:w-[640px] lg:w-[700px] xl:w-[760px] bg-gradient-to-r from-black/75 via-black/40 to-transparent pointer-events-none"></div>
       
       <Navbar />
       
-      {/* Main Content - Center but slightly to the side */}
-      <div className="absolute inset-0 z-10 flex items-start justify-center pt-20">
-        <div className="max-w-4xl px-8 ml-8">
+      {/* Main Content - Left aligned like reference */}
+      <div className="absolute inset-0 z-10 flex items-start justify-start pt-24 pb-12 px-6 sm:px-12 lg:px-24">
+        <div className="max-w-3xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -84,20 +86,22 @@ export default function ChoicesPage() {
               {currentSlides.map((slide, index) => (
                 <motion.div
                   key={index}
-                  className="max-w-4xl mb-6"
+                  className="max-w-3xl mb-10"
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1, duration: 0.4 }}
                 >
-                  <h2 
-                    className="text-2xl font-bold text-white uppercase mb-2"
-                    style={{ fontFamily: 'var(--font-bebas-neue)' }}
-                  >
-                    {slide.title}
-                  </h2>
-                  <div className="w-20 h-0.5 bg-green-400 mb-3"></div>
+                  <div className="inline-block">
+                    <h2 
+                      className="text-3xl sm:text-4xl md:text-5xl font-bold text-white uppercase mb-2"
+                      style={{ fontFamily: 'var(--font-bebas-neue)' }}
+                    >
+                      {slide.title}
+                    </h2>
+                    <div className="h-1 bg-green-400 mb-4"></div>
+                  </div>
                   <p 
-                    className="text-white/90 text-sm leading-relaxed"
+                    className="text-white/90 text-sm sm:text-base leading-relaxed max-w-2xl"
                     style={{ fontFamily: 'var(--font-poppins)' }}
                   >
                     {slide.content}
@@ -109,8 +113,8 @@ export default function ChoicesPage() {
         </div>
       </div>
       
-      {/* Arrow Button - positioned under logo when in second state */}
-      <div className={`absolute z-20 ${currentSlide === 1 ? 'left-8 top-24' : 'right-8 top-1/2 transform -translate-y-1/2'}`}>
+      {/* Arrow Button - vertically centered in both states; left on second slide */}
+      <div className={`absolute z-20 transform ${currentSlide === 1 ? 'left-8 top-1/2 -translate-y-1/2' : 'right-8 top-1/2 -translate-y-1/2'}`}>
         <motion.button 
           onClick={currentSlide === 0 ? nextSlide : prevSlide}
           className="w-12 h-12 flex items-center justify-center hover:scale-110 transition-all duration-300"

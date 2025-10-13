@@ -71,7 +71,7 @@ export default function ExplorePage() {
           
           {/* Our Offerings Button */}
           <motion.button 
-            className="mt-6 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-all duration-300 shadow-lg font-medium text-sm uppercase"
+            className="mt-6 bg-green-500 hover:bg-green-600 text-black px-6 py-2 rounded-lg transition-all duration-300 shadow-lg font-medium text-sm uppercase"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.5 }}

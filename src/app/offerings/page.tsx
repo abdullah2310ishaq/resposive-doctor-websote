@@ -65,7 +65,7 @@ export default function OfferingsPage() {
           >
             <div className="rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
               <div className="flex items-center mb-6">
-                <span className="mr-3 text-blue-400 text-xl">○</span>
+                <Image src="/offerings_svg_3.svg" alt="Section" width={32} height={32} className="mr-3" />
                 <h2 className="text-xl font-bold text-white">Individual Packages (Virtual)</h2>
               </div>
               
@@ -78,11 +78,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Time" width={16} height={16} className="mr-2" />
                       45 min
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free 15 min intro session
                     </div>
                   </div>
@@ -96,11 +96,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Schedule" width={16} height={16} className="mr-2" />
                       Once a week, 8 weeks (45 min a session)
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free introduction (15 min each)
                     </div>
                   </div>
@@ -114,11 +114,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Schedule" width={16} height={16} className="mr-2" />
                       Twice a week, 8 weeks (45 min a session)
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-blue-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free introduction (15 min each)
                     </div>
                   </div>
@@ -136,7 +136,7 @@ export default function OfferingsPage() {
           >
             <div className="rounded-2xl bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-4 sm:p-6">
               <div className="flex items-center mb-6">
-                <span className="mr-3 text-teal-400 text-xl">○</span>
+                <Image src="/offerings_svg_3.svg" alt="Section" width={32} height={32} className="mr-3" />
                 <h2 className="text-xl font-bold text-white">Joint Sessions (Virtual)</h2>
               </div>
               
@@ -149,11 +149,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Time" width={16} height={16} className="mr-2" />
                       60 min
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free introduction session (15 min)
                     </div>
                   </div>
@@ -167,11 +167,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Sessions" width={16} height={16} className="mr-2" />
                       5 sessions (60 min a session)
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free introduction (15 min each)
                     </div>
                   </div>
@@ -185,11 +185,11 @@ export default function OfferingsPage() {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_1.svg" alt="Sessions" width={16} height={16} className="mr-2" />
                       10 sessions (60 min a session)
                     </div>
                     <div className="flex items-center text-white/90 text-xs">
-                      <span className="mr-2 text-teal-400/70">○</span>
+                      <Image src="/offerings_svg_2.svg" alt="Intro" width={16} height={16} className="mr-2" />
                       Free introduction (15 min each)
                     </div>
                   </div>

@@ -29,7 +29,7 @@ export default function PhilosophyPage() {
   return (
     <div className="relative min-h-screen bg-black">
       {/* Background - Stable Layout (No Animation) */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full z-0">
           <Image
             src="/philosophy_bg.jpg"
@@ -46,7 +46,7 @@ export default function PhilosophyPage() {
         {/* Fallback background behind the image */}
         <div className="absolute inset-0 z-[-1] bg-gradient-to-br from-gray-900 via-black to-gray-800" />
         {/* Lighter overlay to improve contrast above the image */}
-        <div className="absolute inset-0 z-10 bg-black/10" />
+        <div className="absolute inset-0 z-[1] bg-black/10" />
       </div>
 
       <Navbar />
@@ -61,7 +61,7 @@ export default function PhilosophyPage() {
         {/* Title */}
         <motion.h1
           className="text-white text-5xl font-bold text-center mb-6"
-          style={{ fontFamily: "var(--font-bebas-neue)" }}
+          style={{ fontFamily: "var(--font-poppins)" }}
           initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
@@ -88,7 +88,7 @@ export default function PhilosophyPage() {
                   ? "text-green-400 border-green-400"
                   : "text-white/90 border-transparent hover:text-green-300 hover:border-green-300"
               }`}
-              style={{ fontFamily: "var(--font-bebas-neue)" }}
+              style={{ fontFamily: "var(--font-poppins)" }}
             >
               {tab.label}
             </button>
@@ -119,7 +119,7 @@ export default function PhilosophyPage() {
               >
                 <h2
                   className="text-green-400 text-2xl font-bold mb-4 text-center"
-                  style={{ fontFamily: "var(--font-bebas-neue)" }}
+                  style={{ fontFamily: "var(--font-poppins)" }}
                 >
                   {activeTab === "art" ? "I AM ART" : "I AM NATURE"}
                 </h2>
