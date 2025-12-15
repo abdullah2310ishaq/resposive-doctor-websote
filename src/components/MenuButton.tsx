@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import roundIcon from '../assets/round.png';
+import { useMenuOverlay } from './MenuOverlayContext';
 
 export default function MenuButton() {
+  const { toggleMenu } = useMenuOverlay();
+
   return (
     <Box
       sx={{
@@ -24,9 +27,9 @@ export default function MenuButton() {
         whileTap={{ scale: 0.94 }}
         style={{ pointerEvents: 'auto' }}
       >
-        <Link
-          href="/menu"
-          style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+        <Box
+          onClick={toggleMenu}
+          sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
         >
           <Box
             component="img"
@@ -41,7 +44,7 @@ export default function MenuButton() {
               filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45))',
             }}
           />
-        </Link>
+        </Box>
       </motion.div>
     </Box>
   );

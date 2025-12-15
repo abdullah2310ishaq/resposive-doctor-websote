@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "../index.css";
 import MenuButton from "../components/MenuButton";
+import MenuOverlay from "../components/MenuOverlay";
+import { MenuOverlayProvider } from "../components/MenuOverlayContext";
 
 export const metadata: Metadata = {
   title: "Mana of Arta - Mind Spa",
@@ -18,8 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <MenuButton />
+        <MenuOverlayProvider>
+          {children}
+          <MenuButton />
+          <MenuOverlay />
+        </MenuOverlayProvider>
       </body>
     </html>
   );
