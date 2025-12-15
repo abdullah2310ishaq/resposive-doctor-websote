@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
+import { useRouter } from 'next/navigation';
 import { getCloudinaryImage } from '../utils/cloudinary';
 
 export default function PhilosophyPage({ asSection = false }) {
+  const router = useRouter();
   // Get optimized image from Cloudinary
   const philosophyImage = getCloudinaryImage('philosphy.png', {
     width: 1920,
@@ -28,12 +30,12 @@ export default function PhilosophyPage({ asSection = false }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      {/* Background Image - Full screen on mobile, side section on desktop */}
+      {/* Background Image - Full screen on mobile, side section on desktop with black padding */}
       <motion.div 
         className={
           asSection
-            ? "relative md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[42%] h-[60vh] md:h-full overflow-hidden"
-            : "fixed md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[42%] h-full md:h-full overflow-hidden"
+            ? "relative md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[42%] h-[60vh] md:h-full overflow-hidden bg-black"
+            : "fixed md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[42%] h-full md:h-full overflow-hidden bg-black"
         }
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -43,8 +45,8 @@ export default function PhilosophyPage({ asSection = false }) {
           src={philosophyImage}
           alt="Philosophy"
           loading="lazy"
-          className="w-full h-full object-cover object-center"
-          initial={{ scale: 1.1, opacity: 0 }}
+          className="w-full h-full md:w-[90%] md:h-full object-cover object-center"
+          initial={{ scale: 1.05, opacity: 0 }}
           animate={{ 
             scale: 1,
             opacity: 1
@@ -89,7 +91,7 @@ export default function PhilosophyPage({ asSection = false }) {
 
       {/* Text Content - Overlay on mobile, side section on desktop */}
       <motion.div 
-        className="absolute md:absolute inset-0 md:left-[42%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[58%] min-h-full md:min-h-full md:bg-black flex flex-col justify-start md:justify-center px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-14 overflow-y-auto font-[Calibri] z-10 [&::-webkit-scrollbar]:hidden"
+        className="absolute md:absolute inset-0 md:left-[42%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[58%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-14 font-[Calibri] z-10"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -98,8 +100,9 @@ export default function PhilosophyPage({ asSection = false }) {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
       >
+        {/* Scrollable text area */}
         <div 
-          className="flex flex-col gap-8 md:gap-10 overflow-y-auto md:overflow-x-hidden max-h-[70vh] md:max-h-full [&::-webkit-scrollbar]:hidden"
+          className="flex-1 flex flex-col gap-8 md:gap-10 overflow-y-auto md:overflow-x-hidden [&::-webkit-scrollbar]:hidden"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -239,6 +242,34 @@ export default function PhilosophyPage({ asSection = false }) {
             </div>
           </motion.div>
         </div>
+
+        {/* Go to Offerings Button (non-scroll area) */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.9, ease: 'easeOut' }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: '0 6px 25px rgba(20, 241, 149, 0.5)',
+          }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => router.push('/offerings')}
+          className="self-start mt-6 text-black text-xs sm:text-sm font-semibold relative overflow-hidden group inline-flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(90deg, #14F195, #63DB70)',
+            boxShadow: '0 4px 15px rgba(20, 241, 149, 0.3)',
+            width: 150,
+            height: 42,
+            border: 'none',
+            borderRadius: 4,
+            padding: '10px 22px',
+            cursor: 'pointer',
+          }}
+        >
+          <span className="relative z-10">
+            Go to Offerings
+          </span>
+        </motion.button>
       </motion.div>
     </motion.div>
   );

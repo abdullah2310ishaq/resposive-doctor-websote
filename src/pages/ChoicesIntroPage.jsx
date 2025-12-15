@@ -61,7 +61,7 @@ import { motion as Motion } from 'framer-motion'
 
         {/* Text Content - Overlay on mobile, side section on desktop */}
         <Motion.div 
-          className="absolute md:absolute inset-0 md:left-[28%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[72%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative overflow-hidden pl-4 pr-5 sm:pl-6 sm:pr-7 md:pl-6 md:pr-12 py-8 sm:py-10 md:pt-20 md:pb-14 font-sans z-10 [&::-webkit-scrollbar]:hidden"
+          className="absolute md:absolute inset-0 md:left-[28%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[72%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative pl-4 pr-5 sm:pl-6 sm:pr-7 md:pl-6 md:pr-12 py-8 sm:py-10 md:pt-24 md:pb-12 font-sans z-10 [&::-webkit-scrollbar]:hidden"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -101,7 +101,7 @@ import { motion as Motion } from 'framer-motion'
               msOverflowStyle: 'none',
             }}
           >
-            <div className="flex flex-col min-w-[300px] md:min-w-auto md:max-w-full">
+            <div className="flex flex-col min-w-[300px] md:min-w-auto md:max-w-full md:mt-10">
               <Motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -194,7 +194,7 @@ import { motion as Motion } from 'framer-motion'
           <div className="flex justify-center items-center gap-4 sm:gap-5 md:gap-6 mt-6 sm:mt-8 md:mt-auto mb-3 sm:mb-4 md:mb-0">
             {/* Left Arrow */}
             <Motion.img
-              src={introBack}
+              src={introBack?.src || introBack}
               alt="Back"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -204,7 +204,7 @@ import { motion as Motion } from 'framer-motion'
 
             {/* Right Arrow */}
             <Motion.img
-              src={introForward}
+              src={introForward?.src || introForward}
               alt="Forward"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}

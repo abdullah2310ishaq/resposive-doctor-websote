@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import roundIcon from '../assets/round.png';
@@ -33,7 +33,7 @@ export default function MenuButton() {
         >
           <Box
             component="img"
-            src={typeof roundIcon === 'string' ? roundIcon : (roundIcon as any)?.src || roundIcon}
+            src={typeof roundIcon === 'string' ? roundIcon : (typeof roundIcon === 'object' && 'src' in roundIcon ? (roundIcon as { src: string }).src : roundIcon)}
             alt="Menu"
             loading="lazy"
             sx={{

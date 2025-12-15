@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useMemo } from "react";
 import { getCloudinaryImage } from "../utils/cloudinary";
 import clockIcon from "../assets/clock png.png";
 import chatIcon from "../assets/chat png.png";
@@ -9,6 +9,8 @@ export default function OfferingsPage() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Prefer Cloudinary background, fall back to local asset if it fails
   const offeringsCloudUrl = getCloudinaryImage("offerings.png", {
@@ -87,7 +89,34 @@ export default function OfferingsPage() {
     },
   ];
 
-  const handleCheckout = (sectionKey, pkg) => {
+  const toggleSelection = (sectionKey, pkg) => {
+    setSelectedItems((prev) => {
+      const id = `${sectionKey}:${pkg.title}`;
+      const exists = prev.find((item) => item.id === id);
+      if (exists) {
+        return prev.filter((item) => item.id !== id);
+      }
+      return [...prev, { id, section: sectionKey, title: pkg.title, price: pkg.price }];
+    });
+  };
+
+  const isSelected = (sectionKey, pkg) =>
+    selectedItems.some((item) => item.id === `${sectionKey}:${pkg.title}`);
+
+  const totalPrice = useMemo(() => {
+    return selectedItems.reduce((sum, item) => {
+      const numeric = Number(
+        (item.price || "")
+          .replace("$", "")
+          .replace(/,/g, "")
+          .trim()
+      );
+      if (Number.isNaN(numeric)) return sum;
+      return sum + numeric;
+    }, 0);
+  }, [selectedItems]);
+
+  const handleSingleCheckout = (sectionKey, pkg) => {
     setError(null);
 
     startTransition(async () => {
@@ -100,6 +129,42 @@ export default function OfferingsPage() {
           body: JSON.stringify({
             section: sectionKey,
             title: pkg.title,
+          }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || "Unable to start checkout. Please try again.");
+        }
+
+        const { url } = await res.json();
+        if (url) {
+          window.location.href = url;
+        } else {
+          throw new Error("No checkout URL returned from server.");
+        }
+      } catch (err) {
+        console.error(err);
+        setError(err.message || "Something went wrong starting checkout.");
+      }
+    });
+  };
+
+  const handleCartCheckout = () => {
+    if (!selectedItems.length) return;
+    setError(null);
+    startTransition(async () => {
+      try {
+        const res = await fetch("/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: selectedItems.map(({ section, title }) => ({
+              section,
+              title,
+            })),
           }),
         });
 
@@ -135,7 +200,7 @@ export default function OfferingsPage() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       {/* Main Container */}
-      <div className="flex flex-col w-full px-4 sm:px-6 md:px-10 pt-6 pb-24 sm:pt-6 sm:pb-8 md:pt-14 md:pb-14 font-[Calibri] text-white">
+      <div className="flex flex-col w-full px-4 sm:px-6 md:px-10 pt-6 pb-24 sm:pt-6 sm:pb-8 md:pt-14 md:pb-14 font-[Calibri] text-white relative">
         {error && (
           <div className="mb-4 rounded-md bg-red-600/80 text-white px-4 py-2 text-sm max-w-2xl mx-auto">
             {error}
@@ -187,6 +252,21 @@ export default function OfferingsPage() {
             You are a striking blend of art and nature, walking a unique experience in life. We strive to meet your needs, expectations, budget and time. If the standard offerings are not suitable, talk to us!
           </motion.p>
         </motion.div>
+
+        {/* Cart summary button (top-right) */}
+        <div className="absolute right-4 top-6 sm:right-6 sm:top-6 md:right-10 md:top-10 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIsCartOpen(true)}
+            disabled={!selectedItems.length || isPending}
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/40 px-3 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-md disabled:opacity-40 disabled:cursor-not-allowed backdrop-blur-sm"
+          >
+            <span className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/60">
+              <span className="block h-3 w-3 border-b-2 border-l-2 border-white rotate-45 translate-y-0.5" />
+            </span>
+            <span>{selectedItems.length ? `Cart (${selectedItems.length})` : "Cart"}</span>
+          </button>
+        </div>
 
         {/* Offerings Grid - Below Header */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
@@ -311,22 +391,131 @@ export default function OfferingsPage() {
                       </motion.div>
                     </motion.div>
 
-                      <motion.button
-                        type="button"
-                        className="mt-2 inline-flex items-center justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => handleCheckout(section.key, pkg)}
-                        disabled={isPending}
-                      >
-                        {isPending ? "Redirecting..." : "Book this package"}
-                      </motion.button>
+                      <div className="mt-2 flex items-center gap-2">
+                        <motion.button
+                          type="button"
+                          className={`inline-flex items-center justify-center rounded-md px-3 py-1.5 text-xs sm:text-sm font-semibold shadow-md transition-colors ${
+                            isSelected(section.key, pkg)
+                              ? "bg-emerald-500 text-black hover:bg-emerald-400"
+                              : "bg-white/10 text-white hover:bg-white/20"
+                          }`}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.96 }}
+                          onClick={() => toggleSelection(section.key, pkg)}
+                          disabled={isPending}
+                        >
+                          {isSelected(section.key, pkg) ? "Remove from cart" : "Add to cart"}
+                        </motion.button>
+                        <motion.button
+                          type="button"
+                          className="inline-flex items-center justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.96 }}
+                          onClick={() => handleSingleCheckout(section.key, pkg)}
+                          disabled={isPending}
+                        >
+                          {isPending ? "Redirecting..." : "Book now"}
+                        </motion.button>
+                      </div>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Cart Modal */}
+        {isCartOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="w-full max-w-md rounded-2xl bg-zinc-950/95 border border-white/10 shadow-2xl p-5 sm:p-6 flex flex-col gap-4"
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-lg sm:text-xl font-semibold">Selected Offerings</h2>
+                <button
+                  type="button"
+                  onClick={() => setIsCartOpen(false)}
+                  className="text-xs sm:text-sm text-white/60 hover:text-white"
+                >
+                  Close
+                </button>
+              </div>
+
+              {selectedItems.length === 0 ? (
+                <p className="text-sm text-white/70">No offerings selected yet.</p>
+              ) : (
+                <div className="flex flex-col gap-2 max-h-64 overflow-y-auto pr-1">
+                  {selectedItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2 text-xs sm:text-sm"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{item.title}</span>
+                        <span className="text-white/70 capitalize text-[11px] sm:text-xs">
+                          {item.section === "individual" ? "Individual" : "Joint"} session
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold">{item.price}</span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setSelectedItems((prev) => prev.filter((it) => it.id !== item.id))
+                          }
+                          className="text-[11px] sm:text-xs text-red-400 hover:text-red-300"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex items-center justify-between mt-2 text-sm sm:text-base">
+                <span className="text-white/80">Total</span>
+                <span className="font-semibold">
+                  {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
+                </span>
+              </div>
+
+              <motion.button
+                type="button"
+                className="mt-3 inline-flex items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-sm sm:text-base font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={handleCartCheckout}
+                disabled={isPending || !selectedItems.length}
+              >
+                {isPending ? "Redirecting..." : "Checkout Selected"}
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Loading overlay */}
+        {isPending && (
+          <motion.div
+            className="fixed inset-0 z-30 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <motion.div
+              className="w-14 h-14 border-2 border-emerald-400/40 border-t-emerald-400 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+            />
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );

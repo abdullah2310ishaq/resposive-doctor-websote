@@ -73,22 +73,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { section, title } = (await req.json()) as {
-      section?: SectionKey;
-      title?: string;
-    };
+    const body = (await req.json()) as
+      | { section?: SectionKey; title?: string }
+      | { items?: { section?: SectionKey; title?: string }[] };
 
-    if (!section || !title) {
-      return NextResponse.json(
-        { error: "Missing section or title for checkout." },
-        { status: 400 }
-      );
+    const lineItems: { name: string; amount: number }[] = [];
+
+    // Support both single selection and multiple items
+    if ("items" in body && Array.isArray(body.items) && body.items.length > 0) {
+      for (const entry of body.items) {
+        if (!entry.section || !entry.title) continue;
+        const li = getLineItem(entry.section, entry.title);
+        if (li) {
+          lineItems.push(li);
+        }
+      }
+    } else if ("section" in body && "title" in body && body.section && body.title) {
+      const li = getLineItem(body.section, body.title);
+      if (li) {
+        lineItems.push(li);
+      }
     }
 
-    const lineItem = getLineItem(section, title);
-    if (!lineItem) {
+    if (!lineItems.length) {
       return NextResponse.json(
-        { error: "Unknown offering selected." },
+        { error: "Missing or unknown offerings for checkout." },
         { status: 400 }
       );
     }
@@ -101,18 +110,16 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: lineItem.name,
-            },
-            unit_amount: lineItem.amount,
+      line_items: lineItems.map((li) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: li.name,
           },
-          quantity: 1,
+          unit_amount: li.amount,
         },
-      ],
+        quantity: 1,
+      })),
       success_url: `${origin}/offerings?status=success`,
       cancel_url: `${origin}/offerings?status=cancelled`,
     });

@@ -33,7 +33,7 @@ export default function ChoicesPage({ asSection = false }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      {/* Background Image - Full screen on mobile, side section on desktop */}
+      {/* Background Image - Full screen on mobile, side section on desktop with black padding */}
       <Motion.div 
         className={
           asSection
@@ -50,8 +50,8 @@ export default function ChoicesPage({ asSection = false }) {
           loading="eager"
           decoding="async"
           fetchPriority="high"
-          className="w-full h-full object-cover object-center"
-          initial={{ scale: 1.1 }}
+          className="w-[90%] h-full object-cover object-center"
+          initial={{ scale: 1.05 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         />
@@ -63,7 +63,7 @@ export default function ChoicesPage({ asSection = false }) {
 
       {/* Text Content - Overlay on mobile, side section on desktop */}
       <Motion.div 
-        className="absolute md:absolute inset-0 md:left-[32%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[68%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative overflow-hidden pl-4 pr-5 sm:pl-6 sm:pr-7 md:pl-4 md:pr-12 py-8 sm:py-10 md:pt-20 md:pb-14 font-sans z-10 [&::-webkit-scrollbar]:hidden"
+        className="absolute md:absolute inset-0 md:left-[32%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[68%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative pl-4 pr-5 sm:pl-6 sm:pr-7 md:pl-4 md:pr-12 py-8 sm:py-10 md:pt-24 md:pb-12 font-sans z-10 [&::-webkit-scrollbar]:hidden"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -103,7 +103,7 @@ export default function ChoicesPage({ asSection = false }) {
             msOverflowStyle: 'none',
           }}
         >
-          <div className="flex flex-col min-w-[300px] md:min-w-auto md:max-w-full">
+          <div className="flex flex-col min-w-[300px] md:min-w-auto md:max-w-full md:mt-10">
             <Motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -195,7 +195,7 @@ export default function ChoicesPage({ asSection = false }) {
         <div className="flex justify-center items-center gap-4 sm:gap-5 md:gap-6 mt-6 sm:mt-8 md:mt-auto mb-3 sm:mb-4 md:mb-0">
           {/* Left Arrow */}
           <Motion.img
-            src={choicesBack}
+            src={choicesBack?.src || choicesBack}
             alt="Back"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -205,7 +205,7 @@ export default function ChoicesPage({ asSection = false }) {
 
           {/* Right Arrow */}
           <Motion.img
-            src={choicesFront}
+            src={choicesFront?.src || choicesFront}
             alt="Forward"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
