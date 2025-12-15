@@ -1,15 +1,10 @@
-import LandingSection from "@/components/LandingSection";
-import HomeSection from "@/components/HomeSection";
+'use client';
+
+import LandingPage from '../pages/LandingPage';
 
 export default function Home() {
   return (
-    <div className="scroll-smooth overflow-x-hidden">
-      <div id="landing">
-        <LandingSection />
-      </div>
-      <div id="home">
-        <HomeSection />
-      </div>
-    </div>
+    <LandingPage />
   );
 }
+

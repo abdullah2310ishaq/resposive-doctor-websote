@@ -1,31 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bebas_Neue, Poppins } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas-neue",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+import "../index.css";
+import MenuButton from "../components/MenuButton";
 
 export const metadata: Metadata = {
-  title: "Mana of Arta",
+  title: "Mana of Arta - Mind Spa",
+  description: "Mind Spa - Mana of Arta",
+  icons: {
+    icon: "/round.png",
+  },
 };
 
 export default function RootLayout({
@@ -35,11 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${poppins.variable} antialiased`}
-      >
+      <body>
         {children}
+        <MenuButton />
       </body>
     </html>
   );
 }
+
