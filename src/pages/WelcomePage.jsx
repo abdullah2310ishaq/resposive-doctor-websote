@@ -89,26 +89,18 @@ function WelcomePage({ asSection = false }) {
         }}
       />
 
-      {/* Subtle Gradient Overlay */}
+      {/* Subtle full-page dim gradient (no side bias) */}
       <Motion.div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"
+        className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/40 to-black/50"
         animate={{
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.8, 1, 0.8],
         }}
         transition={{
-          duration: 3,
+          duration: 4,
           ease: 'easeInOut',
           repeat: Infinity,
           repeatType: 'reverse',
         }}
-      />
-
-      {/* Left to Right Light Opacity Gradient Overlay */}
-      <Motion.div
-        className="absolute inset-0 bg-gradient-to-l from-transparent to-black/80"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
       />
 
       {/* Floating Particles Effect */}
