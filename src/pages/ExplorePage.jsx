@@ -20,12 +20,12 @@ export default function ExplorePage({ asSection = false }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      {/* Background Image - Full screen on mobile, side section on desktop */}
+      {/* Background Image - Full screen on mobile, side section on desktop with black padding */}
       <motion.div 
         className={
           asSection
-            ? "relative md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[38%] h-[60vh] md:h-full overflow-hidden md:flex-shrink-0"
-            : "fixed md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[38%] h-full md:h-full overflow-hidden md:flex-shrink-0"
+            ? "relative md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[38%] h-[60vh] md:h-full overflow-hidden md:flex-shrink-0 bg-black"
+            : "fixed md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[38%] h-full md:h-full overflow-hidden md:flex-shrink-0 bg-black"
         }
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -35,7 +35,7 @@ export default function ExplorePage({ asSection = false }) {
           src={exploreImage}
           alt="Explore"
           loading="lazy"
-          className="w-full h-full object-cover md:object-cover"
+          className="w-[90%] h-full object-cover md:object-cover"
           style={{ objectPosition: 'left' }}
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
