@@ -253,20 +253,62 @@ export default function OfferingsPage() {
           </motion.p>
         </motion.div>
 
-        {/* Cart summary button (top-right) */}
+        {/* Cart / selection summary button (top-right) */}
         <div className="absolute right-4 top-6 sm:right-6 sm:top-6 md:right-10 md:top-10 flex items-center gap-2">
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
             disabled={!selectedItems.length || isPending}
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/40 px-3 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-md disabled:opacity-40 disabled:cursor-not-allowed backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-3 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-md disabled:opacity-40 disabled:cursor-not-allowed backdrop-blur-md"
           >
-            <span className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/60">
-              <span className="block h-3 w-3 border-b-2 border-l-2 border-white rotate-45 translate-y-0.5" />
+            <span className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/60 bg-black/40">
+              <span className="block h-3 w-3 rounded-[6px] border-[2px] border-white border-t-transparent border-r-transparent -rotate-45 translate-y-[1px]" />
             </span>
-            <span>{selectedItems.length ? `Cart (${selectedItems.length})` : "Cart"}</span>
+            <span>
+              {selectedItems.length
+                ? `Selected (${selectedItems.length})`
+                : "Your selection"}
+            </span>
           </button>
         </div>
+
+        {/* Floating bottom bar when something is selected */}
+        {selectedItems.length > 0 && (
+          <motion.div
+            className="fixed inset-x-0 bottom-3 sm:bottom-5 z-30 flex justify-center px-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+          >
+            <div className="max-w-md w-full rounded-2xl bg-zinc-950/85 border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl px-4 py-3 flex items-center justify-between gap-3">
+              <div className="flex flex-col">
+                <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
+                  Your plan
+                </span>
+                <span className="text-sm sm:text-base font-semibold text-white">
+                  {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
+                </span>
+                <span className="text-xs sm:text-sm text-white/70">
+                  Total{" "}
+                  <span className="font-semibold">
+                    {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
+                  </span>
+                </span>
+              </div>
+
+              <motion.button
+                type="button"
+                className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setIsCartOpen(true)}
+                disabled={isPending}
+              >
+                Review & proceed
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
 
         {/* Offerings Grid - Below Header */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
@@ -331,11 +373,16 @@ export default function OfferingsPage() {
                       y: -5,
                       transition: { duration: 0.3 }
                     }}
-                    className={`flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 border-[#2b2b2b] md:hover:border-[#00d4aa] h-full ${
-                      pkg.highlighted
+                    onClick={() => !isPending && toggleSelection(section.key, pkg)}
+                    className={`flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
+                      isSelected(section.key, pkg)
+                        ? "border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
+                        : "border-[#2b2b2b] bg-black/20 md:bg-transparent"
+                    } ${
+                      pkg.highlighted && !isSelected(section.key, pkg)
                         ? "md:hover:shadow-[0_6px_16px_rgba(0,212,170,0.18)]"
                         : ""
-                    } bg-transparent md:bg-transparent`}
+                    }`}
                   >
                     <motion.div 
                       className="flex justify-between items-center"
@@ -362,7 +409,7 @@ export default function OfferingsPage() {
                         whileHover={{ x: 3, transition: { duration: 0.2 } }}
                       >
                         <motion.img
-                          src={clockIcon}
+                          src={clockIcon?.src || clockIcon}
                           alt="Clock"
                           className="w-4 sm:w-5 h-auto"
                           loading="lazy"
@@ -378,7 +425,7 @@ export default function OfferingsPage() {
                         whileHover={{ x: 3, transition: { duration: 0.2 } }}
                       >
                         <motion.img
-                          src={chatIcon}
+                          src={chatIcon?.src || chatIcon}
                           alt="Chat"
                           className="w-4 sm:w-5 h-auto"
                           loading="lazy"
@@ -391,32 +438,26 @@ export default function OfferingsPage() {
                       </motion.div>
                     </motion.div>
 
-                      <div className="mt-2 flex items-center gap-2">
-                        <motion.button
-                          type="button"
-                          className={`inline-flex items-center justify-center rounded-md px-3 py-1.5 text-xs sm:text-sm font-semibold shadow-md transition-colors ${
-                            isSelected(section.key, pkg)
-                              ? "bg-emerald-500 text-black hover:bg-emerald-400"
-                              : "bg-white/10 text-white hover:bg-white/20"
+                    {/* Card selection strip */} 
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.16em] text-white/50">
+                        {isSelected(section.key, pkg) ? "Tap again to unselect" : "Tap card to select"}
+                      </span>
+                      <div
+                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] sm:text-xs font-semibold shadow-sm border ${
+                          isSelected(section.key, pkg)
+                            ? "bg-emerald-500/90 text-black border-emerald-300"
+                            : "bg-white/5 text-white/80 border-white/15"
+                        }`}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            isSelected(section.key, pkg) ? "bg-black" : "bg-emerald-400"
                           }`}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => toggleSelection(section.key, pkg)}
-                          disabled={isPending}
-                        >
-                          {isSelected(section.key, pkg) ? "Remove from cart" : "Add to cart"}
-                        </motion.button>
-                        <motion.button
-                          type="button"
-                          className="inline-flex items-center justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => handleSingleCheckout(section.key, pkg)}
-                          disabled={isPending}
-                        >
-                          {isPending ? "Redirecting..." : "Book now"}
-                        </motion.button>
+                        />
+                        <span>{isSelected(section.key, pkg) ? "Selected" : "Add to plan"}</span>
                       </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>

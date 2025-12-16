@@ -1,3 +1,5 @@
+'use client';
+
 import { getCloudinaryImage } from '../utils/cloudinary';
 import roundIcon from '../assets/round.png';
 import titleImage from '../assets/title.png';

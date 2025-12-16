@@ -13,7 +13,6 @@ export default function SmoothScrollContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeSection, setActiveSection] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   const sections = [
     { id: 'landing', component: LandingPage },
@@ -54,10 +53,9 @@ export default function SmoothScrollContainer() {
 
     let scrollTimeout: NodeJS.Timeout;
     const handleScroll = () => {
-      setIsScrolling(true);
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
+        // intentionally left blank for now – can hook into scroll end if needed
       }, 150);
     };
 
@@ -92,7 +90,7 @@ export default function SmoothScrollContainer() {
           <motion.section
             key={section.id}
             ref={(el) => {
-              sectionRefs.current[index] = el;
+              sectionRefs.current[index] = el as HTMLDivElement | null;
             }}
             className="h-screen w-screen snap-start snap-always relative overflow-hidden"
             initial={{ opacity: 0, y: 50 }}

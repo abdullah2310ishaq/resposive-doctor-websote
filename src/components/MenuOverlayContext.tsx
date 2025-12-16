@@ -28,6 +28,16 @@ export function MenuOverlayProvider({ children }: { children: React.ReactNode })
 export function useMenuOverlay() {
   const ctx = useContext(MenuOverlayContext);
   if (!ctx) {
+    // Return a safe fallback during SSR/build instead of throwing
+    // This allows the component to render during static generation
+    if (typeof window === 'undefined') {
+      return {
+        isOpen: false,
+        openMenu: () => {},
+        closeMenu: () => {},
+        toggleMenu: () => {},
+      };
+    }
     throw new Error('useMenuOverlay must be used within a MenuOverlayProvider');
   }
   return ctx;
