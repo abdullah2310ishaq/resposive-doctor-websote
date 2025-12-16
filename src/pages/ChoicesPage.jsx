@@ -15,7 +15,7 @@ export default function ChoicesPage({ asSection = false }) {
   })
 
   const containerClass = asSection
-    ? "w-full min-h-screen flex flex-col md:flex-row m-0 p-0 box-border"
+    ? "w-full h-screen flex flex-col md:flex-row m-0 p-0 box-border relative"
     : "w-screen h-screen fixed top-0 left-0 flex flex-col md:flex-row overflow-y-auto md:overflow-y-auto m-0 p-0 box-border [&::-webkit-scrollbar]:hidden";
 
   const containerStyle = asSection
@@ -37,7 +37,7 @@ export default function ChoicesPage({ asSection = false }) {
       <Motion.div 
         className={
           asSection
-            ? "relative md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[32%] h-[60vh] md:h-full flex items-center justify-center bg-black overflow-hidden"
+            ? "absolute md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[32%] h-full md:h-full flex items-center justify-center bg-black overflow-hidden"
             : "fixed md:absolute inset-0 md:left-0 md:top-0 md:right-auto md:bottom-0 w-full md:w-[32%] h-full md:h-full flex items-center justify-center bg-black overflow-hidden"
         }
         initial={{ x: -50, opacity: 0 }}

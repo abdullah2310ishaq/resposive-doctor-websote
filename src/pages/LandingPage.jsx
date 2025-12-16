@@ -102,7 +102,7 @@ function LandingPage({ asSection = false }) {
   // Background now static (no parallax)
 
   const containerClass = asSection
-    ? "w-full min-h-screen relative flex flex-col items-center bg-cover bg-center bg-no-repeat m-0 p-0 box-border"
+    ? "w-full h-screen relative flex flex-col items-center bg-cover bg-center bg-no-repeat m-0 p-0 box-border"
     : "w-screen h-screen fixed inset-0 flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-y-auto md:overflow-y-hidden m-0 p-0 box-border";
 
   const containerStyle = asSection

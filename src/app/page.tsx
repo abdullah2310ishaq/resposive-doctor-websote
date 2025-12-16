@@ -1,10 +1,8 @@
 'use client';
 
-import LandingPage from '../pages/LandingPage';
+import SmoothScrollContainer from '../components/SmoothScrollContainer';
 
 export default function Home() {
-  return (
-    <LandingPage />
-  );
+  return <SmoothScrollContainer />;
 }
 
