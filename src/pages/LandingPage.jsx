@@ -1,12 +1,12 @@
-import { useRouter } from 'next/navigation';
 import { getCloudinaryImage } from '../utils/cloudinary';
 import roundIcon from '../assets/round.png';
 import titleImage from '../assets/title.png';
 import { motion as Motion, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useMenuOverlay } from '../components/MenuOverlayContext';
 
 function LandingPage({ asSection = false }) {
-  const router = useRouter();
+  const { openMenu } = useMenuOverlay();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [imagesLoaded, setImagesLoaded] = useState({
@@ -25,7 +25,7 @@ function LandingPage({ asSection = false }) {
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
 
   const handleMenuClick = () => {
-    router.push('/menu');
+    openMenu();
   };
 
   // Preload all images for better performance
