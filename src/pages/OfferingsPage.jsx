@@ -12,6 +12,7 @@ export default function OfferingsPage() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showSuccessSnackbar, setShowSuccessSnackbar] = useState(false);
+  const [showFailureSnackbar, setShowFailureSnackbar] = useState(false);
 
   // Prefer Cloudinary background, fall back to local asset if it fails
   const offeringsCloudUrl = getCloudinaryImage("offerings.png", {
@@ -43,19 +44,29 @@ export default function OfferingsPage() {
     };
   }, [offeringsCloudUrl]);
 
-  // Check for payment success
+  // Check for payment success or failure
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
+    const canceled = urlParams.get('canceled');
     const sessionId = urlParams.get('session_id');
     
     if (success === 'true' || sessionId) {
       setShowSuccessSnackbar(true);
       // Clear URL parameters
       window.history.replaceState({}, document.title, window.location.pathname);
-      // Auto-hide after 6 seconds
+      // Auto-hide after 8 seconds
       const timer = setTimeout(() => {
         setShowSuccessSnackbar(false);
+      }, 8000);
+      return () => clearTimeout(timer);
+    } else if (canceled === 'true' || success === 'false') {
+      setShowFailureSnackbar(true);
+      // Clear URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+      // Auto-hide after 6 seconds
+      const timer = setTimeout(() => {
+        setShowFailureSnackbar(false);
       }, 6000);
       return () => clearTimeout(timer);
     }
@@ -314,44 +325,6 @@ export default function OfferingsPage() {
           </motion.button>
         </div>
 
-        {/* Floating bottom bar when something is selected */}
-        {selectedItems.length > 0 && (
-          <motion.div
-            className="fixed inset-x-0 bottom-3 sm:bottom-5 z-30 flex justify-center px-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-          >
-            <div className="max-w-md w-full rounded-2xl bg-zinc-950/85 border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl px-4 py-3 flex items-center justify-between gap-3">
-              <div className="flex flex-col">
-                <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
-                  Your plan
-                </span>
-                <span className="text-sm sm:text-base font-semibold text-white">
-                  {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
-                </span>
-                <span className="text-xs sm:text-sm text-white/70">
-                  Total{" "}
-                  <span className="font-semibold">
-                    {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
-                  </span>
-                </span>
-              </div>
-
-              <motion.button
-                type="button"
-                className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => setIsCartOpen(true)}
-                disabled={isPending}
-              >
-                Review & proceed
-              </motion.button>
-            </div>
-          </motion.div>
-        )}
-
         {/* Offerings Grid - Below Header */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
           {[
@@ -507,6 +480,87 @@ export default function OfferingsPage() {
           ))}
         </div>
 
+        {/* Your Plan Bar - Below cards on desktop, fixed on mobile */}
+        {selectedItems.length > 0 && (
+          <>
+            {/* Mobile: Fixed at bottom */}
+            <motion.div
+              className="fixed inset-x-0 bottom-3 sm:bottom-5 md:hidden z-30 flex justify-center px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+            >
+              <div className="max-w-md w-full rounded-2xl bg-zinc-950/85 border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl px-4 py-3 flex items-center justify-between gap-3">
+                <div className="flex flex-col">
+                  <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
+                    Your plan
+                  </span>
+                  <span className="text-sm sm:text-base font-semibold text-white">
+                    {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
+                  </span>
+                  <span className="text-xs sm:text-sm text-white/70">
+                    Total{" "}
+                    <span className="font-semibold">
+                      {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
+                    </span>
+                  </span>
+                </div>
+
+                <motion.button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => setIsCartOpen(true)}
+                  disabled={isPending}
+                >
+                  Review & proceed
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Desktop: Below cards in grid */}
+            <div className="hidden md:block max-w-5xl mx-auto w-full mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+                <motion.div
+                  className="col-span-2 flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-col">
+                      <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
+                        Your plan
+                      </span>
+                      <span className="text-sm sm:text-base font-semibold text-white">
+                        {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
+                      </span>
+                      <span className="text-xs sm:text-sm text-white/70">
+                        Total{" "}
+                        <span className="font-semibold">
+                          {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
+                        </span>
+                      </span>
+                    </div>
+
+                    <motion.button
+                      type="button"
+                      className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={() => setIsCartOpen(true)}
+                      disabled={isPending}
+                    >
+                      Review & proceed
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </>
+        )}
+
         {/* Cart Modal */}
         {isCartOpen && (
           <motion.div
@@ -633,14 +687,76 @@ export default function OfferingsPage() {
                 </motion.div>
                 <div className="flex-1">
                   <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
-                    Payment Successful!
+                    Congratulations! Payment Successful!
                   </h3>
                   <p className="text-sm sm:text-base text-white/90 leading-relaxed">
-                    You have made this payment and have booked your session. We will contact you shortly.
+                    Thanks for payment! Your payment has been confirmed. We will contact you shortly.
                   </p>
                 </div>
                 <button
                   onClick={() => setShowSuccessSnackbar(false)}
+                  className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Failure Snackbar */}
+        <AnimatePresence>
+          {showFailureSnackbar && (
+            <motion.div
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
+              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <div className="rounded-2xl bg-gradient-to-r from-red-500/95 to-red-600/95 border border-red-400/50 shadow-[0_20px_50px_rgba(239,68,68,0.4)] backdrop-blur-xl p-5 sm:p-6 flex items-start gap-4">
+                <motion.div
+                  className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 flex items-center justify-center"
+                  initial={{ scale: 0, rotate: 180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                >
+                  <svg
+                    className="w-6 h-6 sm:w-7 sm:h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </motion.div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
+                    Payment Failed
+                  </h3>
+                  <p className="text-sm sm:text-base text-white/90 leading-relaxed">
+                    Your payment could not be processed. Please try again or contact support if the issue persists.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowFailureSnackbar(false)}
                   className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
                 >
                   <svg

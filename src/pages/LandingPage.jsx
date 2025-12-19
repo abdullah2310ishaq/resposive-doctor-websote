@@ -140,29 +140,8 @@ function LandingPage({ asSection = false }) {
 
       {/* Main Content - Centered */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-12 md:py-16 lg:py-20 pb-12 sm:pb-12 md:pb-16 lg:pb-20">
-        {/* Round Icon with Floating and Glow Animation */}
+        {/* Round Icon with Floating Animation */}
         <Motion.div className="relative flex justify-center items-center w-full">
-          {/* Glow Effect */}
-          <Motion.div
-            className="absolute blur-xl bg-white/20 rounded-full pointer-events-none"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 2.5,
-              ease: 'easeInOut',
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-            style={{
-              width: '120%',
-              height: '120%',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          />
           <Motion.img
             src={roundIcon?.src || roundIcon}
             alt="Round Icon"
@@ -220,11 +199,6 @@ function LandingPage({ asSection = false }) {
               duration: 1,
               delay: 0.4,
               ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            whileHover={{
-              scale: 1.08,
-              filter: 'brightness(1.1)',
-              transition: { duration: 0.3 },
             }}
           />
         </Motion.div>
