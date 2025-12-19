@@ -61,7 +61,7 @@ import { motion as Motion } from 'framer-motion'
 
         {/* Text Content - Overlay on mobile, side section on desktop */}
         <Motion.div 
-          className="absolute md:absolute inset-0 md:left-[28%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[72%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative pl-4 pr-5 sm:pl-6 sm:pr-7 md:pl-6 md:pr-12 py-8 sm:py-10 md:pt-24 md:pb-12 font-sans z-10 [&::-webkit-scrollbar]:hidden"
+          className="absolute md:absolute inset-0 md:left-[28%] md:right-0 md:top-0 md:bottom-0 w-full md:w-[72%] min-h-full md:min-h-full md:bg-black flex flex-col justify-between md:justify-center relative overflow-hidden px-4 sm:px-5 md:px-0 py-8 sm:py-10 md:py-12 font-sans z-10 [&::-webkit-scrollbar]:hidden"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -70,8 +70,10 @@ import { motion as Motion } from 'framer-motion'
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
         >
-          {/* Main Heading */}
-          <Motion.h1
+          <div className="flex flex-col overflow-x-hidden relative z-10">
+            <div className="flex flex-col w-full md:max-w-full pr-4 sm:pr-8 md:pr-36 md:pl-36 pl-2 sm:pl-4 md:pt-8">
+              {/* Main Heading */}
+              <Motion.h1
             initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
             animate={{ 
               opacity: 1, 
@@ -83,11 +85,7 @@ import { motion as Motion } from 'framer-motion'
               delay: 0.3,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            whileHover={{
-              scale: 1.02,
-              transition: { duration: 0.3 }
-            }}
-            className="font-sans font-medium text-white text-sm sm:text-base md:text-base leading-snug sm:leading-tight md:leading-[1.2] mb-6 sm:mb-8 md:mb-10 tracking-wide"
+            className="font-sans font-medium text-white text-sm sm:text-base md:text-base leading-snug sm:leading-tight md:leading-[1.2] mt-4 sm:mt-6 md:mt-8 mb-6 sm:mb-8 md:mb-10 tracking-wide"
             style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.6)' }}
           >
             Your Choice
@@ -121,10 +119,6 @@ import { motion as Motion } from 'framer-motion'
                     delay: 0.6,
                     ease: 'easeOut'
                   }}
-                  whileHover={{
-                    x: 5,
-                    transition: { duration: 0.3 }
-                  }}
                 >
                   <h2 className="font-sans font-semibold text-white text-[12px] sm:text-[13px] md:text-[13px] uppercase underline mb-2 sm:mb-3">
                     MIND DETOX, MENTAL BOOST
@@ -148,10 +142,6 @@ import { motion as Motion } from 'framer-motion'
                     delay: 0.7,
                     ease: 'easeOut'
                   }}
-                  whileHover={{
-                    x: 5,
-                    transition: { duration: 0.3 }
-                  }}
                 >
                   <h2 className="font-sans font-semibold text-white text-[12px] sm:text-[13px] md:text-[13px] uppercase underline mb-2 sm:mb-3">
                     FATIGUE / PAIN / BURNOUT
@@ -174,10 +164,6 @@ import { motion as Motion } from 'framer-motion'
                     delay: 0.8,
                     ease: 'easeOut'
                   }}
-                  whileHover={{
-                    x: 5,
-                    transition: { duration: 0.3 }
-                  }}
                 >
                   <h2 className="font-sans font-semibold text-white text-[12px] sm:text-[13px] md:text-[13px] uppercase underline mb-2 sm:mb-3">
                     MOOD AND ANXIETY
@@ -188,6 +174,8 @@ import { motion as Motion } from 'framer-motion'
                 </Motion.div>
               </Motion.div>
             </div>
+          </div>
+          </div>
           </div>
 
           {/* Navigation Arrows */}

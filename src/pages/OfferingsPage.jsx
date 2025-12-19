@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useTransition, useMemo } from "react";
 import { getCloudinaryImage } from "../utils/cloudinary";
 import clockIcon from "../assets/clock png.png";
@@ -11,6 +11,7 @@ export default function OfferingsPage() {
   const [error, setError] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showSuccessSnackbar, setShowSuccessSnackbar] = useState(false);
 
   // Prefer Cloudinary background, fall back to local asset if it fails
   const offeringsCloudUrl = getCloudinaryImage("offerings.png", {
@@ -41,6 +42,24 @@ export default function OfferingsPage() {
       };
     };
   }, [offeringsCloudUrl]);
+
+  // Check for payment success
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const sessionId = urlParams.get('session_id');
+    
+    if (success === 'true' || sessionId) {
+      setShowSuccessSnackbar(true);
+      // Clear URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+      // Auto-hide after 6 seconds
+      const timer = setTimeout(() => {
+        setShowSuccessSnackbar(false);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
   const individualPackages = [
     {
       title: "Single Sessions",
@@ -255,21 +274,44 @@ export default function OfferingsPage() {
 
         {/* Cart / selection summary button (top-right) */}
         <div className="absolute right-4 top-6 sm:right-6 sm:top-6 md:right-10 md:top-10 flex items-center gap-2">
-          <button
+          <motion.button
             type="button"
             onClick={() => setIsCartOpen(true)}
             disabled={!selectedItems.length || isPending}
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-3 py-1.5 text-xs sm:text-sm font-semibold text-white shadow-md disabled:opacity-40 disabled:cursor-not-allowed backdrop-blur-md"
+            className="relative inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-md disabled:opacity-40 disabled:cursor-not-allowed backdrop-blur-md hover:bg-white/10 transition-colors"
+            whileHover={{ scale: selectedItems.length ? 1.05 : 1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <span className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/60 bg-black/40">
-              <span className="block h-3 w-3 rounded-[6px] border-[2px] border-white border-t-transparent border-r-transparent -rotate-45 translate-y-[1px]" />
-            </span>
-            <span>
+            {/* Shopping Cart Icon */}
+            <svg 
+              className="w-5 h-5 sm:w-6 sm:h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" 
+              />
+            </svg>
+            {selectedItems.length > 0 && (
+              <motion.span
+                className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-black"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              >
+                {selectedItems.length}
+              </motion.span>
+            )}
+            <span className="hidden sm:inline">
               {selectedItems.length
-                ? `Selected (${selectedItems.length})`
-                : "Your selection"}
+                ? `Cart (${selectedItems.length})`
+                : "Your Cart"}
             </span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Floating bottom bar when something is selected */}
@@ -352,7 +394,7 @@ export default function OfferingsPage() {
                 {section.title}
               </motion.h2>
 
-              <div className="grid grid-cols-1 gap-3 sm:gap-4 flex-1" style={{ gridTemplateRows: 'repeat(3, 1fr)' }}>
+              <div className="flex flex-col gap-3 sm:gap-4 flex-1">
                 {section.items.map((pkg, index) => (
                   <motion.div
                     key={pkg.title}
@@ -557,6 +599,68 @@ export default function OfferingsPage() {
             />
           </motion.div>
         )}
+
+        {/* Success Snackbar */}
+        <AnimatePresence>
+          {showSuccessSnackbar && (
+            <motion.div
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
+              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <div className="rounded-2xl bg-gradient-to-r from-emerald-500/95 to-emerald-600/95 border border-emerald-400/50 shadow-[0_20px_50px_rgba(16,185,129,0.4)] backdrop-blur-xl p-5 sm:p-6 flex items-start gap-4">
+                <motion.div
+                  className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 flex items-center justify-center"
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                >
+                  <svg
+                    className="w-6 h-6 sm:w-7 sm:h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </motion.div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
+                    Payment Successful!
+                  </h3>
+                  <p className="text-sm sm:text-base text-white/90 leading-relaxed">
+                    You have made this payment and have booked your session. We will contact you shortly.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowSuccessSnackbar(false)}
+                  className="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
