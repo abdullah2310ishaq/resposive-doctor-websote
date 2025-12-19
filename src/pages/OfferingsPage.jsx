@@ -48,10 +48,12 @@ export default function OfferingsPage() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
+    const status = urlParams.get('status');
     const canceled = urlParams.get('canceled');
     const sessionId = urlParams.get('session_id');
     
-    if (success === 'true' || sessionId) {
+    // Check for success: status=success, success=true, or session_id present
+    if (status === 'success' || success === 'true' || sessionId) {
       setShowSuccessSnackbar(true);
       // Clear URL parameters
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -60,7 +62,9 @@ export default function OfferingsPage() {
         setShowSuccessSnackbar(false);
       }, 8000);
       return () => clearTimeout(timer);
-    } else if (canceled === 'true' || success === 'false') {
+    } 
+    // Check for failure: status=failed, status=canceled, canceled=true, or success=false
+    else if (status === 'failed' || status === 'canceled' || canceled === 'true' || success === 'false') {
       setShowFailureSnackbar(true);
       // Clear URL parameters
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -658,13 +662,13 @@ export default function OfferingsPage() {
         <AnimatePresence>
           {showSuccessSnackbar && (
             <motion.div
-              className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
+              className="fixed top-4 right-4 z-50 w-auto max-w-sm"
               initial={{ opacity: 0, y: -50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -50, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <div className="rounded-2xl bg-gradient-to-r from-emerald-500/95 to-emerald-600/95 border border-emerald-400/50 shadow-[0_20px_50px_rgba(16,185,129,0.4)] backdrop-blur-xl p-5 sm:p-6 flex items-start gap-4">
+              <div className="rounded-2xl bg-gradient-to-r from-emerald-500/95 to-emerald-600/95 border border-emerald-400/50 shadow-[0_20px_50px_rgba(16,185,129,0.4)] backdrop-blur-xl p-4 sm:p-5 flex items-start gap-3">
                 <motion.div
                   className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 flex items-center justify-center"
                   initial={{ scale: 0, rotate: -180 }}
@@ -720,7 +724,7 @@ export default function OfferingsPage() {
         <AnimatePresence>
           {showFailureSnackbar && (
             <motion.div
-              className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
+              className="fixed top-4 right-4 z-50 w-auto max-w-sm"
               initial={{ opacity: 0, y: -50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -50, scale: 0.9 }}
