@@ -5,7 +5,7 @@ import clockIcon from "../assets/clock png.png";
 import chatIcon from "../assets/chat png.png";
 import offeringsBg from "../assets/Our Offerings.png";
 
-export default function OfferingsPage() {
+export default function OfferingsPage({ asSection = false }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState(null);
@@ -220,15 +220,25 @@ export default function OfferingsPage() {
     });
   };
 
+  const containerClass = asSection
+    ? "w-full h-screen flex flex-col overflow-y-auto bg-cover bg-center bg-no-repeat [&::-webkit-scrollbar]:hidden"
+    : "w-screen h-screen fixed inset-0 flex flex-col overflow-y-auto bg-cover bg-center bg-no-repeat [&::-webkit-scrollbar]:hidden";
+
+  const containerStyle = {
+    backgroundImage: imageLoaded && backgroundUrl ? `url(${backgroundUrl})` : "none",
+    backgroundColor: imageLoaded ? "transparent" : "#000",
+    ...(asSection
+      ? {}
+      : {
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }),
+  };
+
   return (
     <motion.div
-      className="w-screen h-screen fixed inset-0 flex flex-col overflow-y-auto bg-cover bg-center bg-no-repeat [&::-webkit-scrollbar]:hidden"
-      style={{ 
-        backgroundImage: imageLoaded && backgroundUrl ? `url(${backgroundUrl})` : "none",
-        backgroundColor: imageLoaded ? 'transparent' : '#000',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-      }}
+      className={containerClass}
+      style={containerStyle}
       initial={{ opacity: 0 }}
       animate={{ opacity: imageLoaded ? 1 : 0.8 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}

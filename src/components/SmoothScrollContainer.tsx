@@ -8,6 +8,7 @@ import ExplorePage from '../pages/ExplorePage';
 import ChoicesPage from '../pages/ChoicesPage';
 import ChoicesIntroPage from '../pages/ChoicesIntroPage';
 import PhilosophyPage from '../pages/PhilosophyPage';
+import OfferingsPage from '../pages/OfferingsPage';
 
 export default function SmoothScrollContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,7 @@ export default function SmoothScrollContainer() {
     { id: 'choices', component: ChoicesPage },
     { id: 'choices-intro', component: ChoicesIntroPage },
     { id: 'philosophy', component: PhilosophyPage },
+    { id: 'offerings', component: OfferingsPage },
   ];
 
   useEffect(() => {

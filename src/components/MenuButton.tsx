@@ -1,13 +1,16 @@
 'use client';
 
-
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import roundIcon from '../assets/round.png';
-import { useMenuOverlay } from './MenuOverlayContext';
 
 export default function MenuButton() {
-  const { toggleMenu } = useMenuOverlay();
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/');
+  };
 
   return (
     <Box
@@ -28,13 +31,19 @@ export default function MenuButton() {
         style={{ pointerEvents: 'auto' }}
       >
         <Box
-          onClick={toggleMenu}
+          onClick={handleClick}
           sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
         >
           <Box
             component="img"
-            src={typeof roundIcon === 'string' ? roundIcon : (typeof roundIcon === 'object' && 'src' in roundIcon ? (roundIcon as { src: string }).src : roundIcon)}
-            alt="Menu"
+            src={
+              typeof roundIcon === 'string'
+                ? roundIcon
+                : typeof roundIcon === 'object' && 'src' in roundIcon
+                ? (roundIcon as { src: string }).src
+                : (roundIcon as string)
+            }
+            alt="Go to Landing"
             loading="lazy"
             sx={{
               width: { xs: '42px', sm: '48px' },
