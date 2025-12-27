@@ -74,44 +74,24 @@ export default function ExplorePage({ asSection = false }) {
       >
 
         <div className="flex flex-col overflow-x-hidden relative z-10">
-          <div className="flex flex-col w-full md:max-w-full pr-4 sm:pr-8 md:pr-36 md:pl-1 pl-2 sm:pl-4">
-            {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
-              animate={{ 
-                opacity: 1, 
-                x: 0,
-                filter: 'blur(0px)'
-              }}
-              transition={{ 
-                duration: 0.8,
-                delay: 0.3,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.3 }
-              }}
-              className="font-sans font-light md:font-semibold text-white text-base sm:text-lg md:text-lg leading-[1.3] md:leading-[1.2] mb-8 sm:mb-10 md:mb-20"
-              style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.6)' }}
-            >
-              Explore Art Therapy
-            </motion.h1>
-
-            {/* Paragraphs with Stagger Animation */}
+          <div className="flex flex-col w-full md:max-w-full">
+            {/* Paragraphs with Stagger Animation and Custom Alignment */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col gap-6 sm:gap-5 md:gap-7"
+              className="flex flex-col"
             >
               {[
-                'Today, We Welcome You To Step In A New Panorama, And Fearlessly Explore A Venerable Tradition With A Fresh Set of Skills Salutary To Everyone',
-                'For Millennia, Our Earliest Ancestors Have Intuitively Applied The Therapeutic Power Of Arts For Self-expression And Healing',
-                'Since Mid-20th Century, The Discipline Of Art Therapy Stood As A Superior Non-pharmacological Modality With Minimal Side Effects',
-                'A Sustainable Tool For Life for Acute Crises through Loss, Grief, And Trauma and Chronic Conditions like Depression, Pain, Fatigue, Eating Abnormalities',
-                'Anxiety, Post Traumatic Stress Disorder (PTSD), Cognitive Impairments, and Autism Spectrum'
-              ].map((text, index) => (
+                { text: 'Today you step in a new panorama', align: 'center', gap: 'mb-4 sm:mb-5 md:mb-6', padding: 'px-4 sm:px-5 md:px-0' },
+                { text: 'A Fearless exploration of a fresh set of skills remained from venerable tradition of our early ancestors', align: 'left', gap: 'mb-8 sm:mb-10 md:mb-12', padding: 'px-4 sm:px-5 md:pl-64 md:pr-36' },
+                { text: 'A discovery of a superior non-pharmacological modern treatment', align: 'center', gap: 'mb-2 sm:mb-3 md:mb-4', padding: 'px-4 sm:px-5 md:px-0' },
+                { text: 'Effective, minimal side effects, and salutary to everyone', align: 'center', gap: 'mb-8 sm:mb-10 md:mb-12', padding: 'px-4 sm:px-5 md:px-0' },
+                { text: 'A sustainable tool for life', align: 'center', gap: 'mb-8 sm:mb-10 md:mb-12', padding: 'px-4 sm:px-5 md:px-0' },
+                { text: 'Acute crises through loss, grief, and trauma', align: 'center', gap: 'mb-2 sm:mb-3 md:mb-4', padding: 'px-4 sm:px-5 md:px-0' },
+                { text: 'Chronic conditions like depression, pain, fatigue, eating abnormalities', align: 'left', gap: 'mb-2 sm:mb-3 md:mb-4', padding: 'px-4 sm:px-5 md:pl-80 md:pr-36' },
+                { text: 'Anxiety, post traumatic stress disorder (PTSD), cognitive impairments, and autism spectrum', align: 'left', gap: 'mb-0', padding: 'px-4 sm:px-5 md:pl-64 md:pr-36' }
+              ].map((item, index) => (
                 <motion.p
                   key={index}
                   initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
@@ -129,12 +109,12 @@ export default function ExplorePage({ asSection = false }) {
                     x: 5,
                     transition: { duration: 0.3 }
                   }}
-                  className="font-sans font-extralight md:font-light text-white text-sm sm:text-[13px] md:text-[13.5px] leading-[1.5] sm:leading-[1.4] md:leading-[1.25] capitalize text-left whitespace-normal md:whitespace-nowrap"
+                  className={`font-sans font-extralight md:font-light text-white text-sm sm:text-[13px] md:text-[13.5px] leading-[1.5] sm:leading-[1.4] md:leading-[1.25] whitespace-normal md:whitespace-nowrap ${item.gap} ${item.padding} ${item.align === 'center' ? 'text-center' : 'text-left'}`}
                   style={{ 
                     textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
                   }}
                 >
-                  {text}
+                  {item.text}
                 </motion.p>
               ))}
             </motion.div>
