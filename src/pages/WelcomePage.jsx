@@ -159,11 +159,6 @@ function WelcomePage({ asSection = false }) {
               marginBottom: 'clamp(2rem, 5vw, 3rem)',
               textShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
             }}
-            whileHover={{
-              scale: 1.02,
-              textShadow: '0 0 30px rgba(255, 255, 255, 0.4)',
-              transition: { duration: 0.3 }
-            }}
           >
             Welcome To Mind Spa
           </Motion.h1>
@@ -192,10 +187,6 @@ function WelcomePage({ asSection = false }) {
                   delay: 0.5 + index * 0.15,
                   ease: 'easeOut'
                 }}
-                whileHover={{
-                  x: 5,
-                  transition: { duration: 0.3 }
-                }}
                 className="text-white text-sm sm:text-[0.95rem] leading-relaxed capitalize whitespace-normal md:whitespace-nowrap"
                 style={{ 
                   fontFamily: 'Calibri, sans-serif',
@@ -220,10 +211,6 @@ function WelcomePage({ asSection = false }) {
               duration: 0.7, 
               delay: 0.9,
               ease: 'easeOut'
-            }}
-            whileHover={{
-              scale: 1.05,
-              transition: { duration: 0.3 }
             }}
             className="text-white text-xs sm:text-sm leading-relaxed capitalize whitespace-normal md:whitespace-nowrap text-center md:text-left"
             style={{
@@ -288,7 +275,6 @@ function WelcomePage({ asSection = false }) {
             />
             <Motion.span 
               className="relative z-10" 
-              whileHover={{ scale: 1.05 }}
               style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.2)' }}
             >
               Learn More
