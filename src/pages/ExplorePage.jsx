@@ -80,14 +80,14 @@ export default function ExplorePage({ asSection = false }) {
               className="flex flex-col pt-8 sm:pt-12 md:pt-24"
             >
               {[
-                { text: 'Today you step in a new panorama', align: 'center', gap: 'mb-3 sm:mb-2', padding: 'pl-5 pr-5 sm:px-5 md:px-0' },
-                { text: 'A Fearless exploration of a fresh set of skills remained from venerable tradition of our early ancestors', align: 'left', gap: 'mb-14 sm:mb-16 md:mb-20', padding: 'pl-5 pr-5 sm:pl-5 sm:pr-5 md:pl-28 md:pr-36' },
-                { text: 'A discovery of a superior non-pharmacological modern treatment', align: 'center', gap: 'mb-3 sm:mb-2', padding: 'pl-5 pr-5 sm:px-5 md:px-0' },
-                { text: 'Effective, minimal side effects, and salutary to everyone', align: 'center', gap: 'mb-20 sm:mb-20 md:mb-24', padding: 'pl-5 pr-5 sm:px-5 md:px-0' },
-                { text: 'A sustainable tool for life', align: 'center', gap: 'mb-20 sm:mb-20 md:mb-24', padding: 'pl-5 pr-5 sm:px-5 md:px-0' },
-                { text: 'Acute crises through loss, grief, and trauma', align: 'center', gap: 'mb-3 sm:mb-4', padding: 'pl-5 pr-5 sm:px-5 md:px-0' },
-                { text: 'Chronic conditions like depression, pain, fatigue, eating abnormalities', align: 'center', gap: 'mb-3 sm:mb-4', padding: 'pl-5 pr-5 sm:px-5 md:pl-8 md:pr-0' },
-                { text: 'Anxiety, post traumatic stress disorder (PTSD), cognitive impairments, and autism spectrum', align: 'left', gap: 'mb-0', padding: 'pl-5 pr-5 sm:pl-5 sm:pr-5 md:pl-36 md:pr-36' }
+                { text: 'Today you step in a new panorama', align: 'center', gap: 'mb-3 sm:mb-2', padding: 'pl-5 pr-5 sm:px-5 md:px-0', customStyle: null },
+                { text: 'A Fearless exploration of a fresh set of skills remained from venerable tradition of our early ancestors', align: 'left', gap: 'mb-14 sm:mb-16 md:mb-20', padding: 'pl-5 pr-5 sm:pl-5 sm:pr-5 md:pl-0 md:pr-0', customStyle: { paddingLeft: 'clamp(1.25rem, 9vw, 9rem)', paddingRight: 'clamp(1.25rem, 9vw, 9rem)' } },
+                { text: 'A discovery of a superior non-pharmacological modern treatment', align: 'center', gap: 'mb-3 sm:mb-2', padding: 'pl-5 pr-5 sm:px-5 md:px-0', customStyle: null },
+                { text: 'Effective, minimal side effects, and salutary to everyone', align: 'center', gap: 'mb-20 sm:mb-20 md:mb-24', padding: 'pl-5 pr-5 sm:px-5 md:px-0', customStyle: null },
+                { text: 'A sustainable tool for life', align: 'center', gap: 'mb-20 sm:mb-20 md:mb-24', padding: 'pl-5 pr-5 sm:px-5 md:px-0', customStyle: null },
+                { text: 'Acute crises through loss, grief, and trauma', align: 'center', gap: 'mb-3 sm:mb-4', padding: 'pl-5 pr-5 sm:px-5 md:px-0', customStyle: null },
+                { text: 'Chronic conditions like depression, pain, fatigue, eating abnormalities', align: 'center', gap: 'mb-3 sm:mb-4', padding: 'pl-5 pr-5 sm:px-5 md:pl-0 md:pr-0', customStyle: { paddingLeft: 'clamp(1.25rem, 2vw, 2rem)', paddingRight: '0' } },
+                { text: 'Anxiety, post traumatic stress disorder (PTSD), cognitive impairments, and autism spectrum', align: 'left', gap: 'mb-0', padding: 'pl-5 pr-5 sm:pl-5 sm:pr-5 md:pl-0 md:pr-0', customStyle: { paddingLeft: 'clamp(1.25rem, 12vw, 12rem)', paddingRight: 'clamp(1.25rem, 9vw, 9rem)' } }
               ].map((item, index) => (
                 <motion.p
                   key={index}
@@ -102,9 +102,10 @@ export default function ExplorePage({ asSection = false }) {
                     delay: 0.6 + index * 0.1,
                     ease: 'easeOut'
                   }}
-                  className={`font-sans font-semibold text-white text-base sm:text-[16px] md:text-[17px] leading-[1.6] sm:leading-[1.5] md:leading-[1.25] whitespace-normal md:whitespace-nowrap ${item.gap} ${item.padding} text-left ${item.align === 'center' ? 'md:text-center' : ''}`}
+                  className={`font-sans font-light text-white text-base sm:text-[16px] md:text-[17px] leading-[1.6] sm:leading-[1.5] md:leading-[1.25] whitespace-normal md:whitespace-nowrap ${item.gap} ${item.padding} text-left ${item.align === 'center' ? 'md:text-center' : ''}`}
                   style={{ 
                     textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
+                    ...(item.customStyle || {})
                   }}
                 >
                   {item.text}
