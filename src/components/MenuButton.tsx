@@ -2,11 +2,17 @@
 
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import roundIcon from '../assets/round.png';
 
 export default function MenuButton() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Hide on landing page
+  if (pathname === '/') {
+    return null;
+  }
 
   const handleClick = () => {
     router.push('/');
