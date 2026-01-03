@@ -122,7 +122,11 @@ function LandingPage({ asSection = false }) {
   return (
     <Motion.div
       className={containerClass}
-      style={containerStyle}
+      style={{
+        ...containerStyle,
+        border: 'none',
+        outline: 'none',
+      }}
       role="main"
       aria-label="Landing Page"
       initial={{ opacity: 0 }}
@@ -139,7 +143,10 @@ function LandingPage({ asSection = false }) {
       />
 
       {/* Main Content - Centered */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-12 md:py-16 lg:py-20 pb-12 sm:pb-12 md:pb-16 lg:pb-20">
+      <div 
+        className="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-full px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-12 md:py-16 lg:py-20 pb-12 sm:pb-12 md:pb-16 lg:pb-20"
+        style={{ border: 'none', outline: 'none' }}
+      >
         {/* Round Icon with Floating Animation */}
         <Motion.div className="relative flex justify-center items-center w-full">
           <Motion.img
@@ -207,6 +214,7 @@ function LandingPage({ asSection = false }) {
       {/* Bottom Section - 9 Dots and Mind Spa */}
       <Motion.div
         className="relative z-10 w-full flex flex-col sm:flex-row justify-center items-center px-4 sm:px-6 md:px-8 pb-6 sm:pb-6 md:pb-8 gap-2 sm:gap-4"
+        style={{ border: 'none', outline: 'none' }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
@@ -223,6 +231,7 @@ function LandingPage({ asSection = false }) {
             }
           }}
           className="cursor-pointer grid grid-cols-3 grid-rows-3 gap-[2px] sm:gap-[3px] w-[26px] sm:w-[28px] md:w-[30px] lg:w-[32px] h-[26px] sm:h-[28px] md:h-[30px] lg:h-[32px] mb-2 sm:mb-0 relative group"
+          style={{ border: 'none', outline: 'none' }}
           initial={{ opacity: 0, scale: 0.8, rotate: -45 }}
           animate={{ 
             opacity: 1, 
@@ -237,6 +246,7 @@ function LandingPage({ asSection = false }) {
             <Motion.div
               key={index}
               className="bg-white rounded-full w-full h-full aspect-square relative z-10 shadow-lg"
+              style={{ border: 'none', outline: 'none' }}
               initial={{ opacity: 0, scale: 0, rotate: -180 }}
               animate={{ 
                 opacity: 1, 
@@ -259,6 +269,8 @@ function LandingPage({ asSection = false }) {
             fontFamily:
               'Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
             textShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
+            border: 'none',
+            outline: 'none',
           }}
           initial={{ opacity: 0, x: -10, filter: 'blur(5px)' }}
           animate={{ 
