@@ -22,7 +22,7 @@ export default function MenuButton() {
     <Box
       sx={{
         position: 'fixed',
-        bottom: { xs: '1rem', md: '1.25rem' },
+        bottom: { xs: '1rem', md: '2rem' },
         right: { xs: '1rem', md: '1.25rem' },
         zIndex: 1400,
         pointerEvents: 'none',
