@@ -97,7 +97,7 @@ export default function ExplorePage({ asSection = false }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col pt-24 md:pt-0"
+            className="flex flex-col pt-12 md:pt-0"
           >
             {[
               { text: 'Today you step in a new panorama', gap: 'mb-3 sm:mb-2', indent: '' },
