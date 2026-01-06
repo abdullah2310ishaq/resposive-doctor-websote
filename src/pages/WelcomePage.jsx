@@ -157,6 +157,8 @@ function WelcomePage({ asSection = false }) {
               color: 'white',
               margin: 0,
               marginBottom: 'clamp(2rem, 5vw, 3rem)',
+              // Slight shift to the right on desktop/web view only
+              marginLeft: isMobile ? 0 : '8rem',
               textShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
             }}
           >
