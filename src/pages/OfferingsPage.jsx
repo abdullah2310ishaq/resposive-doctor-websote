@@ -80,7 +80,7 @@ export default function OfferingsPage({ asSection = false }) {
       title: "Single Sessions",
       price: "$130",
       duration: "45 min",
-      intro: "Free 15 min intro session",
+      intro: "Free introduction (15 min each)",
       highlighted: true,
     },
     {
@@ -104,7 +104,7 @@ export default function OfferingsPage({ asSection = false }) {
       title: "Single Sessions",
       price: "$200",
       duration: "60 min",
-      intro: "Free introduction session (15 min)",
+      intro: "Free introduction (15 min each)",
       highlighted: false,
     },
     {
@@ -350,7 +350,7 @@ export default function OfferingsPage({ asSection = false }) {
             },
             {
               key: "joint",
-              title: "Joint Sessions (Virtual)",
+              title: "Joint Session Packages (Virtual)",
               items: jointSessions,
               delay: 0.3,
             },
