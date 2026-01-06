@@ -127,7 +127,7 @@ function WelcomePage({ asSection = false }) {
       ))}
 
       <div
-        className="relative z-10 flex flex-col items-center justify-between w-full max-w-[1000px] min-h-full px-6 sm:px-8 md:px-8 lg:px-24 pt-[55%] sm:pt-[36%] md:pt-[5%] pb-12 md:pb-12 pl-6 sm:pl-16 md:pl-48 lg:pl-64 pr-6 sm:pr-10 md:pr-16 lg:pr-24"
+        className="relative z-10 flex flex-col items-center justify-between w-full max-w-[1000px] min-h-full px-6 sm:px-8 md:px-8 lg:px-24 pt-[55%] sm:pt-[36%] md:pt-[5%] pb-12 md:pb-12 pl-6 sm:pl-16 md:pl-28 lg:pl-44 pr-6 sm:pr-10 md:pr-16 lg:pr-24"
         style={{
           paddingTop: isMobile ? '35%' : undefined,
           transform: isMobile ? 'translateY(-35px)' : 'none',
