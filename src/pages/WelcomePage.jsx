@@ -53,7 +53,7 @@ function WelcomePage({ asSection = false }) {
     }
   }, [welcomeBg])
   const containerClass = asSection
-    ? "relative w-full min-h-screen flex flex-col items-center justify-between bg-cover bg-center bg-no-repeat"
+    ? "relative w-full h-full flex flex-col items-center justify-between bg-cover bg-center bg-no-repeat bg-fixed"
     : "relative w-screen h-screen fixed inset-0 flex flex-col items-center justify-between overflow-y-auto bg-cover bg-center bg-no-repeat bg-scroll md:bg-fixed [&::-webkit-scrollbar]:hidden";
 
   const containerStyle = {
