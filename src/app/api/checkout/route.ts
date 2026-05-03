@@ -13,10 +13,9 @@ const stripe = stripeSecretKey
     })
   : null;
 
-type SectionKey = "individual" | "joint";
+type SectionKey = "individual" | "joint" | "offering";
 
-// Map the offerings in the UI to concrete Stripe line-items.
-// You can later swap these for real Stripe Price IDs if you prefer.
+
 function getLineItem(section: SectionKey, title: string) {
   // amounts are in cents
   if (section === "individual") {
@@ -57,6 +56,27 @@ function getLineItem(section: SectionKey, title: string) {
       return {
         name: "Joint - Bundle 2 (10 sessions)",
         amount: 190000,
+      };
+    }
+  }
+
+  if (section === "offering") {
+    if (title === "INITIATION") {
+      return {
+        name: "Initiation - Comprehensive Evaluation (120 mins)",
+        amount: 50000,
+      };
+    }
+    if (title === "Bundle 1") {
+      return {
+        name: "Bundle 1 - Personalized Sessions (5 x 60 mins)",
+        amount: 100000,
+      };
+    }
+    if (title === "Bundle 2") {
+      return {
+        name: "Bundle 2 - Personalized Sessions (10 x 60 mins)",
+        amount: 180000,
       };
     }
   }
