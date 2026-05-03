@@ -75,67 +75,67 @@ export default function OfferingsPage({ asSection = false }) {
       return () => clearTimeout(timer);
     }
   }, []);
-  const individualPackages = [
+  const offerings = [
     {
-      title: "Single Sessions",
-      price: "$130",
-      duration: "45 min",
-      intro: "Free introduction (15 min each)",
+      title: "INITIATION",
+      subtitle: "Comprehensive Evaluation (120 mins)",
+      price: "$500.00",
+      duration: "120 mins",
+      descriptionPoints: [
+        "Broad Personalized Psycho-Social and Emotional Assessment",
+        "Individualized, Problem-solving Framework Development",
+        "Plan Overview with Client",
+      ],
       highlighted: true,
     },
     {
       title: "Bundle 1",
-      price: "$1000",
-      duration: "Once a week, 8 weeks (45 min a session)",
-      intro: "Free Introduction (15 min each)",
+      subtitle: "Personalized Sessions (5 Sessions, 60 mins)",
+      price: "$1000.00",
+      duration: "5 Sessions, 60 mins",
+      descriptionPoints: [
+        "Goal focused Art-driven sessions",
+        "Guided Solution Development through Self-developing Practice",
+        "Mind-Map growth through Psychological and Philosophical Exploration",
+      ],
       highlighted: false,
     },
     {
       title: "Bundle 2",
-      price: "$2000",
-      duration: "Twice a week, 8 weeks (45 min a session)",
-      intro: "Free Introduction (15 min each)",
+      subtitle: "Personalized Sessions (10 Sessions, 60 mins)",
+      price: "$1,800.00",
+      duration: "10 Sessions, 60 mins",
+      descriptionPoints: [
+        "Goal focused Art-driven sessions",
+        "Guided Solution Development through Self-developing Practice",
+        "Mind-Map growth through Psychological and Philosophical Exploration",
+      ],
       highlighted: false,
     },
   ];
 
-  const jointSessions = [
-    {
-      title: "Single Sessions",
-      price: "$200",
-      duration: "60 min",
-      intro: "Free introduction (15 min each)",
-      highlighted: false,
-    },
-    {
-      title: "Bundle 1",
-      price: "$1000",
-      duration: "5 sessions, (60 min a session)",
-      intro: "Free Introduction (15 min each)",
-      highlighted: false,
-    },
-    {
-      title: "Bundle 2",
-      price: "$1,900",
-      duration: "10 sessions, (60 min a session)",
-      intro: "Free Introduction (15 min each)",
-      highlighted: false,
-    },
-  ];
-
-  const toggleSelection = (sectionKey, pkg) => {
+  const toggleSelection = (pkg) => {
     setSelectedItems((prev) => {
-      const id = `${sectionKey}:${pkg.title}`;
+      const id = `offering:${pkg.title}`;
       const exists = prev.find((item) => item.id === id);
       if (exists) {
         return prev.filter((item) => item.id !== id);
       }
-      return [...prev, { id, section: sectionKey, title: pkg.title, price: pkg.price }];
+      return [
+        ...prev,
+        {
+          id,
+          section: "offering",
+          title: pkg.title,
+          price: pkg.price,
+          duration: pkg.duration,
+        },
+      ];
     });
   };
 
-  const isSelected = (sectionKey, pkg) =>
-    selectedItems.some((item) => item.id === `${sectionKey}:${pkg.title}`);
+  const isSelected = (pkg) =>
+    selectedItems.some((item) => item.id === `offering:${pkg.title}`);
 
   const totalPrice = useMemo(() => {
     return selectedItems.reduce((sum, item) => {
@@ -340,155 +340,113 @@ export default function OfferingsPage({ asSection = false }) {
         </div>
 
         {/* Offerings Grid - Below Header */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
-          {[
-            {
-              key: "individual",
-              title: "Individual Packages (Virtual)",
-              items: individualPackages,
-              delay: 0.2,
-            },
-            {
-              key: "joint",
-              title: "Joint Session Packages (Virtual)",
-              items: jointSessions,
-              delay: 0.3,
-            },
-          ].map((section, sectionIndex) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
+          {offerings.map((pkg, index) => (
             <motion.div
-              key={section.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: section.delay }}
-              className="flex flex-col gap-3 sm:gap-4 h-full"
+              key={pkg.title}
+              initial={{ opacity: 0, scale: 0.9, y: 20, filter: 'blur(5px)' }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                y: 0,
+                filter: 'blur(0px)'
+              }}
+              transition={{
+                duration: 0.6,
+                delay: 0.5 + index * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ 
+                scale: 1.03,
+                y: -5,
+                transition: { duration: 0.3 }
+              }}
+              onClick={() => !isPending && toggleSelection(pkg)}
+              className={`flex flex-col gap-3 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
+                isSelected(pkg)
+                  ? "border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
+                  : "border-[#2b2b2b] bg-black/20 md:bg-transparent"
+              } ${
+                pkg.highlighted && !isSelected(pkg)
+                  ? "md:hover:shadow-[0_6px_16px_rgba(0,212,170,0.18)]"
+                  : ""
+              }`}
             >
-              <motion.h2 
-                className="text-lg sm:text-xl md:text-2xl font-semibold underline underline-offset-4 text-left" 
-                style={{ fontFamily: 'Calibri, sans-serif' }}
-                initial={{ opacity: 0, x: -30 }}
+              <motion.div 
+                className="flex justify-between items-center"
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ 
-                  duration: 0.7,
-                  delay: section.delay + 0.2,
-                  ease: 'easeOut'
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  x: 5,
-                  transition: { duration: 0.3 }
-                }}
+                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
               >
-                {section.title}
-              </motion.h2>
+                <h3 className="font-medium text-base sm:text-lg md:text-xl" style={{ fontFamily: 'Calibri, sans-serif' }}>
+                  {pkg.title}
+                </h3>
+                <span className="font-medium text-base sm:text-lg md:text-xl" style={{ fontFamily: 'Calibri, sans-serif' }}>
+                  {pkg.price}
+                </span>
+              </motion.div>
 
-              <div className="flex flex-col gap-3 sm:gap-4 flex-1">
-                {section.items.map((pkg, index) => (
-                  <motion.div
-                    key={pkg.title}
-                    initial={{ opacity: 0, scale: 0.9, y: 20, filter: 'blur(5px)' }}
-                    animate={{ 
-                      opacity: 1, 
-                      scale: 1,
-                      y: 0,
-                      filter: 'blur(0px)'
-                    }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.5 + index * 0.1 + sectionIndex * 0.15,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                    whileHover={{ 
-                      scale: 1.03,
-                      y: -5,
-                      transition: { duration: 0.3 }
-                    }}
-                    onClick={() => !isPending && toggleSelection(section.key, pkg)}
-                    className={`flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
-                      isSelected(section.key, pkg)
-                        ? "border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
-                        : "border-[#2b2b2b] bg-black/20 md:bg-transparent"
-                    } ${
-                      pkg.highlighted && !isSelected(section.key, pkg)
-                        ? "md:hover:shadow-[0_6px_16px_rgba(0,212,170,0.18)]"
-                        : ""
+              <motion.div 
+                className="flex flex-col gap-2 flex-1"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+              >
+                <motion.div 
+                  className="flex items-center gap-2"
+                  whileHover={{ x: 3, transition: { duration: 0.2 } }}
+                >
+                  <motion.img
+                    src={clockIcon?.src || clockIcon}
+                    alt="Clock"
+                    className="w-4 sm:w-5 h-auto"
+                    loading="lazy"
+                    whileHover={{ rotate: 15, scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <span className="font-light text-[12px] sm:text-[13px] md:text-[15px] text-gray-200" style={{ fontFamily: 'Calibri, sans-serif' }}>
+                    {pkg.subtitle}
+                  </span>
+                </motion.div>
+                <motion.div 
+                  className="flex items-start gap-2"
+                  whileHover={{ x: 3, transition: { duration: 0.2 } }}
+                >
+                  <motion.img
+                    src={chatIcon?.src || chatIcon}
+                    alt="Chat"
+                    className="w-4 sm:w-5 h-auto mt-0.5"
+                    loading="lazy"
+                    whileHover={{ rotate: -15, scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <ul className="font-light text-[12px] sm:text-[13px] md:text-[15px] text-gray-200 list-disc pl-4 space-y-1">
+                    {pkg.descriptionPoints.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </motion.div>
+
+              {/* Card selection strip */} 
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.16em] text-white/50">
+                  {isSelected(pkg) ? "Tap again to unselect" : "Tap card to select"}
+                </span>
+                <div
+                  className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] sm:text-xs font-semibold shadow-sm border ${
+                    isSelected(pkg)
+                      ? "bg-emerald-500/90 text-black border-emerald-300"
+                      : "bg-white/5 text-white/80 border-white/15"
+                  }`}
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      isSelected(pkg) ? "bg-black" : "bg-emerald-400"
                     }`}
-                  >
-                    <motion.div 
-                      className="flex justify-between items-center"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.6 + index * 0.1 + sectionIndex * 0.15 }}
-                    >
-                      <h3 className="font-medium text-base sm:text-lg md:text-xl" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                        {pkg.title}
-                      </h3>
-                      <span className="font-medium text-base sm:text-lg md:text-xl" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                        {pkg.price}
-                      </span>
-                    </motion.div>
-
-                    <motion.div 
-                      className="flex flex-col gap-2 flex-1"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.7 + index * 0.1 + sectionIndex * 0.15 }}
-                    >
-                      <motion.div 
-                        className="flex items-center gap-2"
-                        whileHover={{ x: 3, transition: { duration: 0.2 } }}
-                      >
-                        <motion.img
-                          src={clockIcon?.src || clockIcon}
-                          alt="Clock"
-                          className="w-4 sm:w-5 h-auto"
-                          loading="lazy"
-                          whileHover={{ rotate: 15, scale: 1.1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        <span className="font-light text-[12px] sm:text-[13px] md:text-[15px] text-gray-200" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                          {pkg.duration}
-                        </span>
-                      </motion.div>
-                      <motion.div 
-                        className="flex items-center gap-2"
-                        whileHover={{ x: 3, transition: { duration: 0.2 } }}
-                      >
-                        <motion.img
-                          src={chatIcon?.src || chatIcon}
-                          alt="Chat"
-                          className="w-4 sm:w-5 h-auto"
-                          loading="lazy"
-                          whileHover={{ rotate: -15, scale: 1.1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        <span className="font-light text-[12px] sm:text-[13px] md:text-[15px] text-gray-200" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                          {pkg.intro}
-                        </span>
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Card selection strip */} 
-                    <div className="mt-2 flex items-center justify-between">
-                      <span className="text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.16em] text-white/50">
-                        {isSelected(section.key, pkg) ? "Tap again to unselect" : "Tap card to select"}
-                      </span>
-                      <div
-                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] sm:text-xs font-semibold shadow-sm border ${
-                          isSelected(section.key, pkg)
-                            ? "bg-emerald-500/90 text-black border-emerald-300"
-                            : "bg-white/5 text-white/80 border-white/15"
-                        }`}
-                      >
-                        <span
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            isSelected(section.key, pkg) ? "bg-black" : "bg-emerald-400"
-                          }`}
-                        />
-                        <span>{isSelected(section.key, pkg) ? "Selected" : "Add to plan"}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                  />
+                  <span>{isSelected(pkg) ? "Selected" : "Add to plan"}</span>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -612,7 +570,7 @@ export default function OfferingsPage({ asSection = false }) {
                       <div className="flex flex-col">
                         <span className="font-semibold">{item.title}</span>
                         <span className="text-white/70 capitalize text-[11px] sm:text-xs">
-                          {item.section === "individual" ? "Individual" : "Joint"} session
+                          {item.duration || "Session package"}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
