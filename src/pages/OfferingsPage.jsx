@@ -339,8 +339,8 @@ export default function OfferingsPage({ asSection = false }) {
           </motion.button>
         </div>
 
-        {/* Offerings Grid - Below Header */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto w-full pb-8 sm:pb-4 md:pb-0 items-stretch">
+        {/* Offerings Stack - Below Header (vertical on all screens) */}
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 max-w-3xl xl:max-w-4xl mx-auto w-full pb-8 sm:pb-4 md:pb-0">
           {offerings.map((pkg, index) => (
             <motion.div
               key={pkg.title}
@@ -362,7 +362,7 @@ export default function OfferingsPage({ asSection = false }) {
                 transition: { duration: 0.3 }
               }}
               onClick={() => !isPending && toggleSelection(pkg)}
-              className={`flex flex-col gap-3 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 cursor-pointer ${
+              className={`flex flex-col gap-3 p-3 sm:p-4 md:p-5 rounded-xl border transition-all duration-300 cursor-pointer w-full ${
                 isSelected(pkg)
                   ? "border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
                   : "border-[#2b2b2b] bg-black/20 md:bg-transparent"
@@ -491,44 +491,42 @@ export default function OfferingsPage({ asSection = false }) {
               </div>
             </motion.div>
 
-            {/* Desktop: Below cards in grid */}
-            <div className="hidden md:block max-w-5xl mx-auto w-full mt-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-                <motion.div
-                  className="col-span-2 flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex flex-col">
-                      <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
-                        Your plan
+            {/* Desktop: Below cards */}
+            <div className="hidden md:block max-w-3xl xl:max-w-4xl mx-auto w-full mt-8">
+              <motion.div
+                className="flex flex-col gap-2 p-3 sm:p-4 md:p-5 rounded-xl border border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.35)]"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em] text-white/50">
+                      Your plan
+                    </span>
+                    <span className="text-sm sm:text-base font-semibold text-white">
+                      {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
+                    </span>
+                    <span className="text-xs sm:text-sm text-white/70">
+                      Total{" "}
+                      <span className="font-semibold">
+                        {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
                       </span>
-                      <span className="text-sm sm:text-base font-semibold text-white">
-                        {selectedItems.length} offering{selectedItems.length > 1 ? "s" : ""} selected
-                      </span>
-                      <span className="text-xs sm:text-sm text-white/70">
-                        Total{" "}
-                        <span className="font-semibold">
-                          {totalPrice > 0 ? `$${totalPrice.toLocaleString()}` : "-"}
-                        </span>
-                      </span>
-                    </div>
-
-                    <motion.button
-                      type="button"
-                      className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.96 }}
-                      onClick={() => setIsCartOpen(true)}
-                      disabled={isPending}
-                    >
-                      Review & proceed
-                    </motion.button>
+                    </span>
                   </div>
-                </motion.div>
-              </div>
+
+                  <motion.button
+                    type="button"
+                    className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-black shadow-md hover:bg-emerald-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.96 }}
+                    onClick={() => setIsCartOpen(true)}
+                    disabled={isPending}
+                  >
+                    Review & proceed
+                  </motion.button>
+                </div>
+              </motion.div>
             </div>
           </>
         )}
