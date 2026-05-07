@@ -91,7 +91,7 @@ export default function OfferingsPage({ asSection = false }) {
     {
       title: "Bundle 1",
       subtitle: "Personalized Sessions (5 Sessions, 60 mins)",
-      price: "$1000.00",
+      price: "$1,000.00",
       duration: "5 Sessions, 60 mins",
       descriptionPoints: [
         "Goal focused Art-driven sessions",
