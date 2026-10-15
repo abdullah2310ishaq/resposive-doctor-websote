@@ -126,7 +126,7 @@ export default function ChoicesPage({ asSection = false }) {
                   TRAUMA
                 </h2>
                 <p className="font-sans font-normal text-white text-[11px] sm:text-[11px] md:text-[12px] leading-[1.55] sm:leading-[1.45] text-justify" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)', opacity: 0.9 }}>
-                  The remarkable value of art therapy in overpowering trauma has been proved. The process provides a safe and controlled environment where individuals can access and process traumatic emotions through nonverbal symbolic expressions. Sensory engagement facilitates the processing of blocked traumatic memories. A significant benefit for individuals comes from revisiting their experiences and viewing the visual artwork representing their trauma. The repetition of the auditory, verbal, and visual memories is crucial, as each review helps to fill in memory gaps, the processing and ultimately diminishing the related suffering.
+                  The remarkable value of art for therapy in overpowering trauma has been proved. The process provides a safe and controlled environment where individuals can access and process traumatic emotions through nonverbal symbolic expressions. Sensory engagement facilitates the processing of blocked traumatic memories. A significant benefit for individuals comes from revisiting their experiences and viewing the visual artwork representing their trauma. The repetition of the auditory, verbal, and visual memories is crucial, as each review helps to fill in memory gaps, the processing and ultimately diminishing the related suffering.
                 </p>
               </Motion.div>
 
@@ -148,7 +148,7 @@ export default function ChoicesPage({ asSection = false }) {
                   FATIGUE / PAIN / BURNOUT
                 </h2>
                 <p className="font-sans font-normal text-white text-[11px] sm:text-[11px] md:text-[12px] leading-[1.55] sm:leading-[1.45] text-justify" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)', opacity: 0.9 }}>
-                  Art therapy can circumvent cultural and language-based barriers, addressing the root causes of eating disorders. For those struggling with disordered eating, art provides a safe medium for self-expression, and facilitating a deeper understanding of themselves, their relationships, and interactions with the world. Metaphorical expressions within art can reveal unconscious conflicts, such as the individual's simultaneous desire for safety through food and their conscious efforts to rationalize the behaviors.
+                  Art for therapy can circumvent cultural and language-based barriers, addressing the root causes of eating disorders. For those struggling with disordered eating, art provides a safe medium for self-expression, and facilitating a deeper understanding of themselves, their relationships, and interactions with the world. Metaphorical expressions within art can reveal unconscious conflicts, such as the individual's simultaneous desire for safety through food and their conscious efforts to rationalize the behaviors.
                 </p>
               </Motion.div>
 
@@ -170,7 +170,7 @@ export default function ChoicesPage({ asSection = false }) {
                   Autism Spectrum
                 </h2>
                 <p className="font-sans font-normal text-white text-[11px] sm:text-[11px] md:text-[12px] leading-[1.55] sm:leading-[1.45] text-justify" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)', opacity: 0.9 }}>
-                  Research on creative arts interventions for children with Autism Spectrum Disorder level one, reveals improvements in occupation-based outcomes, specifically in performance skills related to process and social interaction, as well as in body functions. Art Therapy promotes self-expression and structured freedom, but not avoidant and suppressive coping approaches which ultimately lead to anxiety and stress in this population.
+                  Research on creative arts interventions for children with Autism Spectrum Disorder level one, reveals improvements in occupation-based outcomes, specifically in performance skills related to process and social interaction, as well as in body functions. Art for Therapy promotes self-expression and structured freedom, but not avoidant and suppressive coping approaches which ultimately lead to anxiety and stress in this population.
                 </p>
               </Motion.div>
             </Motion.div>
