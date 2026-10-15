@@ -125,7 +125,7 @@ import { motion as Motion } from 'framer-motion'
                   </h2>
                   <p className="font-sans font-normal text-white text-[11px] sm:text-[12px] md:text-[12px] leading-[1.55] sm:leading-[1.45] opacity-90 text-justify" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)' }}>
                     Routine preservation of mental fitness is strongly connected to psychological power and health.
-                    Mental fitness is a dynamic process of neutralizing the endless piercing external forces to one's SILO social, financial, cultural, political, and also, to stay tuned with the naturally fluctuating internal biological waves within. Amidst a pervasive culture of psychiatric over-diagnosis and medication over-prescription, it is vital to prioritize prevention, and claim control over our mental wellbeing by adopting sustainable self-care. The role of Art therapy in coping and detangling complex emotions for individuals with a psychologically demanding positions with performance pressure, and high expectations is remarkable.
+                    Mental fitness is a dynamic process of neutralizing the endless piercing external forces to one's SILO social, financial, cultural, political, and also, to stay tuned with the naturally fluctuating internal biological waves within. Amidst a pervasive culture of psychiatric over-diagnosis and medication over-prescription, it is vital to prioritize prevention, and claim control over our mental wellbeing by adopting sustainable self-care. The role of Art of therapy in coping and detangling complex emotions for individuals with a psychologically demanding positions with performance pressure, and high expectations is remarkable.
                   </p>
                 </Motion.div>
 
@@ -169,7 +169,7 @@ import { motion as Motion } from 'framer-motion'
                     MOOD AND ANXIETY
                   </h2>
                   <p className="font-sans font-normal text-white text-[11px] sm:text-[12px] md:text-[12px] leading-[1.55] sm:leading-[1.45] opacity-90 text-justify" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.5)' }}>
-                    Application of art therapy surpasses the limitations of verbal expression by employing powerful techniques that resonate with the soul, body, and mind. As a deeply personal and recovery-oriented practice, it holistically addresses emotional, spiritual, social, and clinical well-being. Engaging in creative processes offers individuals valuable insight for understanding and untangling complex emotions that underlie emotional dysregulation, depression, anxiety, irritability, and anger. It also serves to enhance motivation, diminish stress, advance neurosensory capacities, strengthen interpersonal bonds, and shape a more profound sense of self-fulfillment.
+                    Application of art of therapy surpasses the limitations of verbal expression by employing powerful techniques that resonate with the soul, body, and mind. As a deeply personal and recovery-oriented practice, it holistically addresses emotional, spiritual, social, and clinical well-being. Engaging in creative processes offers individuals valuable insight for understanding and untangling complex emotions that underlie emotional dysregulation, depression, anxiety, irritability, and anger. It also serves to enhance motivation, diminish stress, advance neurosensory capacities, strengthen interpersonal bonds, and shape a more profound sense of self-fulfillment.
                   </p>
                 </Motion.div>
               </Motion.div>
